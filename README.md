@@ -1,16 +1,12 @@
 <p align="center">
 <img width=500" src="http://www.bywalks.com/image/darkangel.png"><br><br>
 <a href="https://github.com/Bywalks/DarkAngel/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Bywalks/DarkAngel"/></a>
-<a href="https://github.com/Bywalks/DarkAngel/releases"><img alt="GitHub issues" src="https://img.shields.io/github/release/Bywalks/DarkAngel"/></a>
 <a href="https://github.com/Bywalks/DarkAngel/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/MIT-License-blue.svg"/></a>
 <a href="https://twitter.com/intent/tweet/?text=Fully%20automatic%20white%20hat%20vulnerability%20reward%20scanner,%20from%20hacker%20and%20bugcrowd%20asset%20monitoring%20to%20vulnerability%20report%20generation%20and%20enterprise%20WeChat%20notification.%20https://github.com/Bywalks/DarkAngel%20%23scanner%20%23cybersecurity%20%23bugbounty%20%23infosec%20%23pentest"><img alt="tweet" src="https://img.shields.io/twitter/url?url=https://github.com/Bywalks/DarkAngel" /></a>
 <a href="https://twitter.com/Bywalkss"><img alt="Twitter" src="https://img.shields.io/twitter/follow/Bywalkss?label=Followers&style=social" /></a>
 <a href="https://github.com/Bywalks"><img alt="Github" src="https://img.shields.io/github/followers/Bywalks?style=social" /></a><br></br>
 中文 | <a href="README_EN.md">English</a>
 </p>
-
-
-
 
 
 ---
@@ -30,6 +26,34 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel/releases](https://github.
 - 漏洞报告自动生成；
 - 企业微信通知扫描结果；
 - 前端显示扫描结果；
+
+## 自动生成漏洞报告
+
+自动生成漏洞报告 - MarkDown格式 - 存放地址/root/darkangel/vulscan/results/report
+
+![](http://www.bywalks.com/image/report.jpg)
+
+支持自添加漏洞报告模板，目前已添加漏洞报告模板如下，漏洞名配置为nuclei模板文件名即可
+
+![](http://www.bywalks.com/image/report_template1.jpg)
+
+自定义漏洞报告模板格式
+
+![](http://www.bywalks.com/image/report_template2.jpg)
+
+## 企业微信通知
+
+可先查看如何获取配置：[企业微信开发接口文档](https://developer.work.weixin.qq.com/document/path/90487)
+
+获取参数后，在/root/darkangel/vconfig/config.ini中配置参数，即可启用企业微信通知
+
+微信通知 - 漏洞结果
+
+ ![](http://www.bywalks.com/image/result_vx2.png)
+
+微信通知 - 扫描进程
+
+ ![](http://www.bywalks.com/image/result_vx1.png)
 
 ## 安装
 
@@ -86,34 +110,6 @@ docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/d
 docker容器内挂载目录无权限
 运行容器时：--privileged=true
 
-## 企业微信通知
-
-可先查看如何获取配置：[企业微信开发接口文档](https://developer.work.weixin.qq.com/document/path/90487)
-
-获取参数后，在/root/DarkAngel/vconfig/config.ini中配置参数，即可启用企业微信通知
-
-微信通知 - 漏洞结果
-
- ![](http://www.bywalks.com/image/result_vx2.png)
-
-微信通知 - 扫描进程
-
- ![](http://www.bywalks.com/image/result_vx1.png)
-
-## 自动生成漏洞报告
-
-自动生成漏洞报告 - MarkDown格式 - 存放地址/root/DarkAngel/vulscan/results/report
-
-![](http://www.bywalks.com/image/report.jpg)
-
-支持自添加漏洞报告模板，目前已添加漏洞报告模板如下，漏洞名配置为nuclei模板文件名即可
-
-![](http://www.bywalks.com/image/report_template1.jpg)
-
-自定义漏洞报告模板格式
-
-![](http://www.bywalks.com/image/report_template2.jpg)
-
 ## 用法
 
 ```
@@ -167,7 +163,7 @@ optional arguments:
 
 ![](http://www.bywalks.com/image/add_domain_and_scan2.jpg)
 
-扫描结束后，会把子域名结果存在在/root/DarkAngel/vulscan/results/urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内
+扫描结束后，会把子域名结果存在在/root/darkangel/vulscan/results/urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内
 
 ### --nuclei-file-scan
 
