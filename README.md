@@ -101,10 +101,16 @@ docker start elasticsearch
 
 ```
 拉取扫描器镜像
-docker pull bywalkss/darkangel:v1
+docker pull bywalkss/darkangel:v2
 
 部署扫描器
-docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/darkangel:v1
+docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/darkangel:v2
+
+进入扫描器docker
+docker exec -it /bin/bash docker_id
+
+复制源代码
+cp -r /root/DarkAngel/* /root/darkangel/
 ```
 
 docker容器内挂载目录无权限
