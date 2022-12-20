@@ -29,6 +29,8 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 
 ## 自动生成漏洞报告
 
+欢迎各位提交一些漏洞模板给这个项目
+
 自动生成漏洞报告 - MarkDown格式 - 存放地址/root/darkangel/vulscan/results/report
 
 ![](http://www.bywalks.com/image/report.jpg)
