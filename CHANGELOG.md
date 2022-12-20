@@ -14,4 +14,4 @@
 - 前端显示扫描结果
 
 ## 待上线功能
-细腻化hackerone和bugcrowd的资产监听模块，以program和update_time为维度进行domain添加
+- 细腻化hackerone和bugcrowd的资产监听模块，以program和update_time为维度进行domain添加
