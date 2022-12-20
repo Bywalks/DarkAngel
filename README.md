@@ -258,6 +258,10 @@ url列表存放位置
 微信通知 - 漏洞结果
 
  ![](http://www.bywalks.com/image/result_vx2.png)
+ 
+## 公众号
+
+![](http://www.bywalks.com/image/official_account.jpg)
 
 ## 更多
 
