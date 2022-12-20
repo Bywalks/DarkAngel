@@ -29,6 +29,8 @@ Currently supported features：
 
 ## Automatically generate vulnerability reports
 
+Welcome to submit some vulnerability templates to this project
+                           
 Automatically generate vulnerability report - MarkDown format - storage address/root/darkangel/vulscan/results/report
 
 ![](http://www.bywalks.com/image/report.jpg)
