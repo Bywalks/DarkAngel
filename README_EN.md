@@ -259,6 +259,28 @@ WeChat notification - scanning process
 WeChat Notification - Vulnerability Results
 
 ![](http://www.bywalks.com/image/result_vx2.png)
+                                                  
+
+
+## Feedback and contribution code
+
+First of all, thank you for taking the time to make DarkAngel better 👍
+
+Bug feedback, suggestions and vulnerability template submission, your Github ID will be disclosed in the following thanks list:
+
+https://github.com/Bywalks/DarkAngel/blob/main/thanks.md
+
+Bug feedback
+
+Please submit the current DarkAngel error message or screenshot in [GitHub Issues](https://github.com/Bywalks/DarkAngel/issues), and describe your replication steps in detail.
+
+Function suggestions
+
+In [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions), you can speak freely and discuss the functions you want with the developers.
+
+Vulnerability template submission
+
+Welcome to submit vulnerability templates in [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions). Open source projects require everyone's contribution.
 
 ## more
 
