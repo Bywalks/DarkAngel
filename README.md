@@ -113,8 +113,7 @@ docker exec -it /bin/bash docker_id
 cp -r /root/DarkAngel/* /root/darkangel/
 ```
 
-docker容器内挂载目录无权限
-运行容器时：--privileged=true
+docker容器内挂载目录无权限：解决方法1、运行容器时：--privileged=true；解决方法2、宿主机运行命令：setenforce 0
 
 ## 用法
 
