@@ -27,15 +27,6 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 - 企业微信通知扫描结果；
 - 前端显示扫描结果；
 
-## 前言
-
- - 安装使用过程中遇到问题，请在issues中详细提交问题日志
- - 有任何好的建议，欢迎提交issues，我会仔细考虑
- - 开源项目需要每个人的支持，希望各位给这个项目提交漏洞模板
- - 这个项目其实有很多使用场景，比如白帽子挖洞，甲方做内外网资产安全自监测
- - 如果你通过这个工具挖到一些巨额bounty的漏洞，欢迎在项目issues处截个图
- - 最后希望白帽子群体收获多多，各企业在这个时代也能更加安全
-
 ## 自动生成漏洞报告
 
 自动生成漏洞报告 - MarkDown格式 - 存放地址/root/darkangel/vulscan/results/report
