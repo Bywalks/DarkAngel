@@ -268,6 +268,26 @@ url列表存放位置
 
  ![](http://www.bywalks.com/image/result_vx2.png)
  
+## 反馈及贡献代码
+
+首先感谢您花费时间来使DarkAngel变得更好用👍
+
+Bug反馈、建议以及漏洞模板提交，您的Github ID会在以下致谢列表披露：
+
+https://github.com/Bywalks/DarkAngel/blob/main/thanks.md
+
+### Bug反馈
+
+请提交在[GitHub Issues](https://github.com/Bywalks/DarkAngel/issues)中，提供当前的DarkAngel报错信息或截图、详细描述您的复现步骤。
+
+### 功能建议
+
+在[GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions)中您可以畅所欲言，同开发人员讨论您想要的功能。
+
+### 漏洞模板提交
+
+欢迎各位在[GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions)中提交漏洞模板，开源项目需要每个人的贡献。
+
 ## 公众号
 
 ![](http://www.bywalks.com/image/official_account.jpg)
