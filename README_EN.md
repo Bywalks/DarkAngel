@@ -114,9 +114,8 @@ docker exec -it /bin/bash docker_id
 Copy source code
 cp -r /root/DarkAngel/* /root/darkangel/
 ```
-
-No permission to mount directory in Docker container
-When running the container:--privileged=true
+                                                  
+The directory mounted in the docker container does not have permission: Solution 1. When running the container: --privileged=true; Solution 2. The host runs the command: setenforce 0
 
 ## usage
 
