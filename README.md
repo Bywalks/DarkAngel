@@ -264,7 +264,7 @@ url列表存放位置
 
 Bug反馈、建议以及漏洞模板提交，您的Github ID会在以下致谢列表披露：
 
-https://github.com/Bywalks/DarkAngel/blob/main/thanks.md
+https://github.com/Bywalks/DarkAngel/blob/main/THANKS.md
 
 Bug反馈
 
