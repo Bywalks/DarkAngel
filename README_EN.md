@@ -260,15 +260,13 @@ WeChat Notification - Vulnerability Results
 
 ![](http://www.bywalks.com/image/result_vx2.png)
                                                   
-
-
 ## Feedback and contribution code
 
 First of all, thank you for taking the time to make DarkAngel better 👍
 
 Bug feedback, suggestions and vulnerability template submission, your Github ID will be disclosed in the following thanks list:
 
-https://github.com/Bywalks/DarkAngel/blob/main/thanks.md
+https://github.com/Bywalks/DarkAngel/blob/main/THANKS.md
 
 Bug feedback
 
