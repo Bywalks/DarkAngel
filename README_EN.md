@@ -109,7 +109,7 @@ Deployment Scanner
 docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/darkangel:v2
 
 Enter the scanner docker
-docker exec -it /bin/bash docker_id
+docker exec -it docker_id /bin/bash
 
 Copy source code
 cp -r /root/DarkAngel/* /root/darkangel/
