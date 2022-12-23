@@ -77,7 +77,7 @@ If there is a problem, execute the command
 sysctl -w vm.max_ map_ count=262144
 
 Restart Docker
-docker start elasticsearch
+docker restart elasticsearch
 ```
 
 Kibana image:
