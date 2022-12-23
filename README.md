@@ -75,7 +75,7 @@ docker logs -f elasticsearch
 sysctl -w vm.max_map_count=262144
 
 重启docker
-docker start elasticsearch
+docker restart elasticsearch
 ```
 
 Kibana镜像：
