@@ -279,6 +279,29 @@ In [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions), you c
 Vulnerability template submission
 
 Welcome to submit vulnerability templates in [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions). Open source projects require everyone's contribution.
+                                                  
+## Recent Updates
+
+#### [v0.0.2] - 2022-12-27
+
+**update**  
+
+- Error prompt after filling in ES-IP error
+- Correct that the execution permissions of files such as nucleus and xray in the tools directory are 777
+
+#### [v0.0.1] - 2022-12-12
+
+**function**  
+
+- Hackerone asset monitoring
+- Bugcrowd asset monitoring
+- Custom Asset Add
+- Sub domain name scanning
+- Website fingerprint identification
+- Vulnerability scanning
+- Automatic generation of vulnerability reports
+- Enterprise WeChat notification scanning results
+- Front end displays scanning results
 
 ## more
 
