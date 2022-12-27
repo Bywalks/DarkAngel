@@ -278,6 +278,29 @@ Bug反馈
 
 欢迎各位在[GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions)中提交漏洞模板，开源项目需要每个人的贡献。
 
+## 最近更新
+
+#### [v0.0.2] - 2022-12-27
+
+**更新**  
+
+- ES-IP填写错误后进行错误提示
+- 改正tools目录下nuclei、xray等文件的执行权限为777
+
+#### [v0.0.1] - 2022-12-12
+
+**功能**  
+
+- hackerone资产监听
+- bugcrowd资产监听
+- 自定义资产添加
+- 子域名扫描
+- 网站指纹识别
+- 漏洞扫描
+- 漏洞报告自动生成
+- 企业微信通知扫描结果
+- 前端显示扫描结果
+
 ## 公众号
 
 ![](http://www.bywalks.com/image/official_account.jpg)
