@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*-coding:utf-8 -*-
 """
-# File       : darkangel.py
+# File       : main_scan.py
 # Time       ：2021/12/15
 # version    ：python 3
 # Description：
@@ -284,6 +284,11 @@ class DarkAngel(object):
             # begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
             # begin_time = "2022-11-25T08:21:10.34Z"
             logger.log('INFOR',"[begin_time]"+str(begin_time))
+            
+            if not self.es_helper.es_instance.ping():
+                logger.log('INFOR', f"ES未连接，请检查配置文件是否填写或是否正确。")
+                logger.log('DEBUG', f"ES未连接，请检查配置文件是否填写或是否正确。")
+                break
 
             time.sleep(30)
             # 收集新的私有程序
