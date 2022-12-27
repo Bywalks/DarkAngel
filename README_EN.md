@@ -5,7 +5,7 @@
 <a href="https://twitter.com/intent/tweet/?text=Fully%20automatic%20white%20hat%20vulnerability%20reward%20scanner,%20from%20hacker%20and%20bugcrowd%20asset%20monitoring%20to%20vulnerability%20report%20generation%20and%20enterprise%20WeChat%20notification.%20https://github.com/Bywalks/DarkAngel%20%23scanner%20%23cybersecurity%20%23bugbounty%20%23infosec%20%23pentest"><img alt="tweet" src="https://img.shields.io/twitter/url?url=https://github.com/Bywalks/DarkAngel" /></a>
 <a href="https://twitter.com/Bywalkss"><img alt="Twitter" src="https://img.shields.io/twitter/follow/Bywalkss?label=Followers&style=social" /></a>
 <a href="https://github.com/Bywalks"><img alt="Github" src="https://img.shields.io/github/followers/Bywalks?style=social" /></a><br></br>
-中文 | <a href="README_EN.md">English</a>
+<a href="README.md">中文</a> | English
 </p>
 
 
