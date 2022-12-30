@@ -382,7 +382,7 @@ class DarkAngel(object):
                     logger.log('DEBUG',f'{error}')
 
     def scan_subdomain_by_domain(self, filename):
-        file_name = f"/root/vuln_scan/{filename}.txt"
+        file_name = f"/root/darkangel/{filename}.txt"
         file_len = len(open(file_name, 'r').readlines())
         i = 1
         with open(file_name,'r') as f:
@@ -814,7 +814,7 @@ class DarkAngel(object):
         os.system("nuclei -ut")
 
     def add_new_program_from_file(self, program, offer_bounty, old_domains):
-        file = "/root/vuln_scan/"+str(program)+".txt"
+        file = "/root/darkangel/"+str(program)+".txt"
         data = datetime.datetime.now()
         with open(file, "r") as f:
             for each in f:
