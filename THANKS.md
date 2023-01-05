@@ -4,4 +4,4 @@
 
 Avatar | ID | Link
 ---- | ---- | ----
-[![locky504](https://github.com/locky504.png?size=40)](https://github.com/locky504) | [locky504](https://github.com/locky504) | https://github.com/locky504
+[![locky504](https://github.com/locky504.png?size=30)](https://github.com/locky504) | [locky504](https://github.com/locky504) | https://github.com/locky504
