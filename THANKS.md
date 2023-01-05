@@ -4,4 +4,4 @@
 
 Avatar | ID | Link
 ---- | ---- | ----
-[![bywalks](https://github.com/bywalks.png?size=40)](https://github.com/bywalks) | [bywalks](https://github.com/bywalks) | https://github.com/bywalks
+[![locky504](https://github.com/locky504.png?size=40)](https://github.com/locky504) | [locky504](https://github.com/locky504) | https://github.com/locky504
