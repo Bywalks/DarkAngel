@@ -104,13 +104,18 @@ docker start elasticsearch
 docker pull bywalkss/darkangel:v0.0.2
 
 部署扫描器
-docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/darkangel:v0.0.2
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.2
 
 进入扫描器docker
 docker exec -it docker_id /bin/bash
 
-复制源代码
-cp -r /root/DarkAngel/* /root/darkangel/
+进入root目录
+cd root
+
+下载源代码
+git clone https://github.com/Bywalks/DarkAngel.git
+
+进行DarkAngel目录后即可使用
 ```
 
 docker容器内挂载目录无权限：解决方法1、运行容器时：--privileged=true；解决方法2、宿主机运行命令：setenforce 0
