@@ -111,8 +111,13 @@ docker run -it -d -v /root/darkangel:/root/darkangel --name darkangel bywalkss/d
 Enter the scanner docker
 docker exec -it docker_id /bin/bash
 
-Copy source code
-cp -r /root/DarkAngel/* /root/darkangel/
+Enter the root directory
+cd root
+
+Download source code
+git clone https://github.com/Bywalks/DarkAngel.git
+
+You can use it after into the DarkAngel directory
 ```
                                                   
 The directory mounted in the docker container does not have permission: Solution 1. When running the container: --privileged=true; Solution 2. The host runs the command: setenforce 0
