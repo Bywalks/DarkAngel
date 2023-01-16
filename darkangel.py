@@ -17,6 +17,7 @@ import json
 import time
 import uuid
 import copy
+import datetime
 import argparse
 import requests
 import datetime
@@ -26,7 +27,7 @@ from multiprocessing import Process
 from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.dirname(os.path.abspath(__file__))+"/subdomain/oneforall")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/subdomain/oneforall")
 
 from vulscan.xray_scan import *
 from vulscan.nuclei_scan import NucleiScan
@@ -38,11 +39,12 @@ from vcommon.ESHelper import ESHelper
 from vcommon.vuln_manage import VulnManager
 from vconfig.config import *
 from vconfig.log import logger
-#from subdomain.oneforall.config.log import logger
+# from subdomain.oneforall.config.log import logger
 from h1domain.collecth1domain import CollectH1Domain
 from h1domain.collectbcdomain import CollectBCDomain
 from subdomain.oneforall.subdomain_run import SubDomain
 import traceback
+
 CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 # 防止SSL报错
 requests.packages.urllib3.disable_warnings()
@@ -66,6 +68,7 @@ darkangel_banner = f'''{green}
 DarkAngel is a white hat scanner. Every white hat makes the Internet more secure.        
 '''
 
+
 class DarkAngel(object):
     def __init__(self):
         self.es_helper = ESHelper(ES_HOSTS, ES_USER, ES_PASSWD)
@@ -83,7 +86,7 @@ class DarkAngel(object):
         self.domain_index = "domain-assets-1"
         self.spider_index = "spider-assets-1"
 
-    def get_new_pdomain(self,begin_time=None):
+    def get_new_pdomain(self, begin_time=None):
         if begin_time == None:
             begin_time = datetime.datetime.now().replace(day=datetime.datetime.now().day - 1)
         dsl = {
@@ -101,14 +104,14 @@ class DarkAngel(object):
         new_pdomain_list = self.es_helper.query_domains_by_dsl(self.program_index, dsl)
         return new_pdomain_list
 
-    def get_pdomain_by_time(self,gte,lt):
+    def get_pdomain_by_launched_time(self, gte, lt):
         dsl = {
             'query': {
                 "range": {
-                        "launched_at": {
-                          "gte": gte,
-                          "lt": lt
-                        }
+                    "launched_at": {
+                        "gte": gte,
+                        "lt": lt
+                    }
                 }
             },
             "_source": ["program", "launched_at", "update_time", "domain", "max_severity", "platform", "offer_bounty"]
@@ -116,14 +119,14 @@ class DarkAngel(object):
         pdomain_list = self.es_helper.query_domains_by_dsl(self.program_index, dsl)
         return pdomain_list
 
-    def get_pdomain_by_program(self,program):
+    def get_pdomain_by_program(self, program):
         dsl = {
             'query': {
                 "bool": {
-                        "must": [
-                            {"match_phrase": {"program": str(program)}}
-                        ]
-                    }
+                    "must": [
+                        {"match_phrase": {"program": str(program)}}
+                    ]
+                }
             },
             "_source": ["program", "launched_at", "update_time", "domain", "max_severity", "platform", "offer_bounty"]
         }
@@ -140,8 +143,9 @@ class DarkAngel(object):
 
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO',"[Subdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
-                        'program'] + "-" + pdomain_info['_source']['domain'])
+                logger.log('INFO',
+                           "[Subdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                               'program'] + "-" + pdomain_info['_source']['domain'])
                 try:
                     self.subdomain_scan.scansubdomain(pdomain_info)
                 except Exception as error:
@@ -166,7 +170,7 @@ class DarkAngel(object):
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
                 logger.log('INFO', "[Fingerprint] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" +
-                            pdomain_info['_source']['program'] + "-" + pdomain_info['_source']['domain'])
+                           pdomain_info['_source']['program'] + "-" + pdomain_info['_source']['domain'])
                 self.finger_scan.finger_scan_by_pdomain(pdomain=pdomain)
                 i = i + 1
 
@@ -174,16 +178,17 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO',"[Nuclei-Pdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
-                    'program'] + "-" + pdomain_info['_source']['domain'])
+                logger.log('INFO',
+                           "[Nuclei-Pdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                               'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
                 new_nuclei_url_list = self.nuclei_scan.read_url_list(pdomain=pdomain)
                 if new_nuclei_url_list:
                     new_nuclei_url_len = len(new_nuclei_url_list)
                     j = 1
                     for url_info in new_nuclei_url_list:
-                        logger.log('INFO',"[Nuclei-Subdomain] 开始扫描第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
-                              url_info['_source']['url'])
+                        logger.log('INFO', "[Nuclei-Subdomain] 开始扫描第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
+                                   url_info['_source']['url'])
                         j = j + 1
                         f1 = executor.submit(self.nuclei_scan.startNucleiScan, url_info['_source'])
                         futures.append(f1)
@@ -191,8 +196,8 @@ class DarkAngel(object):
                     wait(futures)
                     j = 1
                     for url_info1 in new_nuclei_url_list:
-                        logger.log('INFO',"[Nuclei-Subdomain] 开始写入第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
-                              url_info1['_source']['url'])
+                        logger.log('INFO', "[Nuclei-Subdomain] 开始写入第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
+                                   url_info1['_source']['url'])
                         j = j + 1
                         self.nuclei_scan.write_nuclei_list(url_info1['_source'])
 
@@ -200,14 +205,14 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO',"[Spider] 开始爬取第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFO', "[Spider] 开始爬取第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
                 asset_info_list = self.spider_scan.read_url_list(pdomain=pdomain)
                 if asset_info_list != None:
                     for asset_info in asset_info_list:
                         asset_info = asset_info['_source']
-                        logger.log('INFO',asset_info)
+                        logger.log('INFO', asset_info)
                         f1 = executor.submit(self.spider_scan.spider, asset_info)
                         futures.append(f1)
                     # 等待futures里面所有的子线程执行结束， 再执行主线程(join())
@@ -217,7 +222,7 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO',"[Spider] 开始写入第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFO', "[Spider] 开始写入第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 # 做spider之前pdomain中有http:// https://则把http://或者https://去除掉再查（加http://或者https://）
                 asset_info_list = self.spider_scan.read_url_list(pdomain=pdomain)
@@ -244,7 +249,7 @@ class DarkAngel(object):
                     self.fuzz_scan.startfuzz(pdomain=pdomain)
                     time.sleep(1)
                     logger.log('INFO', "[Fuzz] 扫描成功" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
-                    'program'] + "-" + pdomain_info['_source']['domain'])
+                        'program'] + "-" + pdomain_info['_source']['domain'])
                     self.fuzz_scan.write_fuzz_list(domain=pdomain)
                 i = i + 1
 
@@ -264,14 +269,14 @@ class DarkAngel(object):
 
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO',"[Xray] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFO', "[Xray] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
                 pdomain = pdomain_info['_source']['domain']
                 self.xray_scan.startdispatch(pdomain=pdomain)
 
         else:
-            logger.log('INFO',"不存在新增pdomain，扫描结束！")
+            logger.log('INFO', "不存在新增pdomain，扫描结束！")
 
     def scan_new_domain(self):
         # 1：收集h1和bc 新program和pdomain
@@ -283,8 +288,8 @@ class DarkAngel(object):
             begin_time = datetime.datetime.now()
             # begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
             # begin_time = "2022-11-25T08:21:10.34Z"
-            logger.log('INFOR',"[begin_time]"+str(begin_time))
-            
+            logger.log('INFOR', "[begin_time]" + str(begin_time))
+
             if not self.es_helper.es_instance.ping():
                 logger.log('INFOR', f"ES未连接，请检查配置文件是否填写或是否正确。")
                 logger.log('DEBUG', f"ES未连接，请检查配置文件是否填写或是否正确。")
@@ -295,7 +300,7 @@ class DarkAngel(object):
             all_private_programs = self.h1_scan.collecprivateprogram()
             # 通过program获取h1 private域名，并与原库域名做匹配，若不存在则入库 ES
             self.h1_scan.collectnewprivateprogramdomain(all_private_programs)
-            
+
             all_programs = self.h1_scan.collecprogram()
             # 通过program获取h1域名，并与原库域名做匹配，若不存在则入库 ES
             self.h1_scan.collectnewprogramdomain(all_programs)
@@ -323,7 +328,7 @@ class DarkAngel(object):
                 self.vuln_mng.send_message(message=message)
             time.sleep(1800)
 
-    def scan_domain_by_program(self,program):
+    def scan_domain_by_program(self, program):
         # 1：漏洞扫描模块-获取新pdomain
         # 通过program获取pdomain
         program_pdomain_list = self.get_pdomain_by_program(program)
@@ -334,7 +339,7 @@ class DarkAngel(object):
     def scan_domain_by_time(self, gte, lt):
         # 1：漏洞扫描模块-通过时间获取pdomain_list
         # 通过时间获取pdomain
-        pdomain_list = self.get_pdomain_by_time(gte,lt)
+        pdomain_list = self.get_pdomain_by_launched_time(gte, lt)
 
         # 2: 漏洞扫描模块-开始扫描
         self.scan_module(pdomain_list=pdomain_list)
@@ -355,46 +360,73 @@ class DarkAngel(object):
 
         time.sleep(10)
         # 2：通过时间获取pdomain
-        pdomain_list = self.get_pdomain_by_time(gte=begin_time, lt="2028-01-01")
+        pdomain_list = self.get_pdomain_by_launched_time(gte=begin_time, lt="2028-01-01")
 
         # 3: 漏洞扫描模块-开始扫描
         self.scan_module(pdomain_list=pdomain_list)
-        
+
         # 添加bounty和no_bounty域名
         self.save_new_url_list_by_time(begin_time=begin_time)
+
+    def add_new_domain(self):
+        # 收集h1和bc 新program和pdomain
+        begin_time = datetime.datetime.now()
+        # begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
+        # begin_time = "2022-11-25T08:21:10.34Z"
+        logger.log('INFOR', "[begin_time]" + str(begin_time))
+
+        if not self.es_helper.es_instance.ping():
+            logger.log('INFOR', f"ES未连接，请检查配置文件是否填写或是否正确。")
+            logger.log('DEBUG', f"ES未连接，请检查配置文件是否填写或是否正确。")
+            return
+
+        time.sleep(30)
+        # 收集新的私有程序
+        all_private_programs = self.h1_scan.collecprivateprogram()
+        # 通过program获取h1 private域名，并与原库域名做匹配，若不存在则入库 ES
+        self.h1_scan.collectnewprivateprogramdomain(all_private_programs)
+
+        all_programs = self.h1_scan.collecprogram()
+        # 通过program获取h1域名，并与原库域名做匹配，若不存在则入库 ES
+        self.h1_scan.collectnewprogramdomain(all_programs)
+
+        # 获取bc域名，并与原库域名做匹配，若不存在则入库 ES
+        self.bc_scan.collect_new_bc_program_domain()
 
     def scan_subdomain_by_launched_at(self, gte=None, lt=None):
         if gte == None:
             gte = "2010-01-01"
         if lt == None:
             lt = "2030-01-01"
-        pdomain_list = self.subdomain_scan.read_domains_by_launched_at(gte,lt)
+        pdomain_list = self.subdomain_scan.read_domains_by_launched_at(gte, lt)
         if pdomain_list != None:
             pdomain_len = len(pdomain_list)
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO',"[Subdomain] 开始扫描第"+str(i)+"/"+str(pdomain_len)+"-"+pdomain_info['_source']['domain'])
+                logger.log('INFO',
+                           "[Subdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                               'domain'])
                 i = i + 1
                 try:
-                    logger.log('INFO',pdomain_info['_source']['program'] + " - " + pdomain_info['_source']['domain'])
+                    logger.log('INFO', pdomain_info['_source']['program'] + " - " + pdomain_info['_source']['domain'])
                     self.subdomain_scan.scansubdomain(pdomain_info)
                 except Exception as error:
-                    logger.log('DEBUG',f'{error}')
+                    logger.log('DEBUG', f'{error}')
 
     def scan_subdomain_by_domain(self, filename):
         file_name = f"/root/darkangel/{filename}.txt"
         file_len = len(open(file_name, 'r').readlines())
         i = 1
-        with open(file_name,'r') as f:
+        with open(file_name, 'r') as f:
             for each in f:
-                each= each.strip("\n")
-                logger.log('INFO',"[Subdomain] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + each)
+                each = each.strip("\n")
+                logger.log('INFO', "[Subdomain] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + each)
                 pdomain_info = self.subdomain_scan.read_domains_by_domain(str(each))
                 if pdomain_info:
                     try:
                         self.subdomain_scan.scansubdomain(pdomain_info[0])
                     except Exception as error:
-                        logger.log('DEBUG',f'{error}')
+                        logger.log('DEBUG', f'{error}')
                 i = i + 1
 
     def nuclei_scan_by_temp(self, gte=None, lt=None, templateName=None):
@@ -402,7 +434,7 @@ class DarkAngel(object):
             gte = "2010-01-01"
         if lt == None:
             lt = "2030-01-01"
-        pdomain_list = self.get_pdomain_by_time(gte,lt)
+        pdomain_list = self.get_pdomain_by_launched_time(gte, lt)
         if pdomain_list != None:
             pdomain_len = len(pdomain_list)
             i = 1
@@ -411,28 +443,29 @@ class DarkAngel(object):
             for each_info in pdomain_list:
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
-                    logger.log('INFO',pdomain_info)
+                    logger.log('INFO', pdomain_info)
                     url_list = self.nuclei_scan.read_url_list(pdomain=pdomain_info)
                     if url_list:
-                        logger.log('INFO',url_list)
+                        logger.log('INFO', url_list)
                         self.nuclei_scan.write_url_list(program=pdomain_info, asset_list=url_list)
 
             # 对这些以pdomain为单位的url_list进行nuclei扫描
             for each_info in pdomain_list:
-                logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len)+"-"+each_info['_source']['domain'])
+                logger.log('INFO',
+                           "[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + each_info['_source']['domain'])
                 i = i + 1
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
                     try:
-                        #pdomain_info = each_info["_source"]["domain"]
-                        logger.log('INFO',pdomain_info)
+                        # pdomain_info = each_info["_source"]["domain"]
+                        logger.log('INFO', pdomain_info)
                         urls_output_txt = f"{self.nuclei_scan.urls_resultDir}/{pdomain_info}_urls_output.txt"
                         if os.path.exists(urls_output_txt):
                             self.nuclei_scan.startNucleiTempFileScan(program=pdomain_info,
-                                                                      templateName=templateName)
+                                                                     templateName=templateName)
                             self.nuclei_scan.write_nuclei_template_list(program=pdomain_info)
                     except Exception as error:
-                        logger.log('DEBUG',f'{error}')
+                        logger.log('DEBUG', f'{error}')
 
     def nuclei_five_file_scan_temp(self, templateName=None, offer_bounty=None, platform=None):
         '''
@@ -478,7 +511,7 @@ class DarkAngel(object):
             gte = "2010-01-01"
         if lt == None:
             lt = "2030-01-01"
-        pdomain_list = self.get_pdomain_by_time(gte,lt)
+        pdomain_list = self.get_pdomain_by_launched_time(gte, lt)
         if pdomain_list != None:
             pdomain_len = len(pdomain_list)
             i = 1
@@ -487,28 +520,29 @@ class DarkAngel(object):
             for each_info in pdomain_list:
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
-                    logger.log('INFO',pdomain_info)
+                    logger.log('INFO', pdomain_info)
                     url_list = self.nuclei_scan.read_url_list(pdomain=pdomain_info)
                     if url_list:
-                        logger.log('INFO',url_list)
+                        logger.log('INFO', url_list)
                         self.nuclei_scan.write_url_list(program=pdomain_info, asset_list=url_list)
 
             # 对这些以pdomain为单位的url_list进行nuclei扫描
             for each_info in pdomain_list:
-                logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len)+"-"+each_info['_source']['domain'])
+                logger.log('INFO',
+                           "[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + each_info['_source']['domain'])
                 i = i + 1
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
                     try:
-                        #pdomain_info = each_info["_source"]["domain"]
-                        logger.log('INFO',pdomain_info)
+                        # pdomain_info = each_info["_source"]["domain"]
+                        logger.log('INFO', pdomain_info)
                         urls_output_txt = f"{self.nuclei_scan.urls_resultDir}/{pdomain_info}_urls_output.txt"
                         if os.path.exists(urls_output_txt):
                             self.nuclei_scan.startNucleiTempFileScan(program=pdomain_info,
-                                                                      templateName=templateName)
+                                                                     templateName=templateName)
                             self.nuclei_scan.write_nuclei_template_list(program=pdomain_info)
                     except Exception as error:
-                        logger.log('DEBUG',f'{error}')
+                        logger.log('DEBUG', f'{error}')
 
     def nuclei_five_file_scan_new_temp(self, offer_bounty=None, platform=None):
         file_list = []
@@ -529,7 +563,7 @@ class DarkAngel(object):
         executor = ThreadPoolExecutor(max_workers=5)
         futures = []
         for file_name in file_list:
-            logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFO', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             f1 = executor.submit(self.nuclei_scan.startNucleiNewTemlFileScan, file_name)
             futures.append(f1)
             i = i + 1
@@ -538,7 +572,7 @@ class DarkAngel(object):
 
         i = 1
         for file_name in file_list:
-            logger.log('INFO',"[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFO', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             self.nuclei_scan.write_nuclei_template_list(program=file_name)
             i = i + 1
 
@@ -562,7 +596,7 @@ class DarkAngel(object):
         futures = []
 
         for file_name in file_list:
-            logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFO', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             f1 = executor.submit(self.nuclei_scan.startNucleiFileScan, file_name)
             futures.append(f1)
             i = i + 1
@@ -571,7 +605,7 @@ class DarkAngel(object):
 
         i = 1
         for file_name in file_list:
-            logger.log('INFO',"[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFO', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             self.nuclei_scan.write_nuclei_template_list(program=file_name)
             i = i + 1
 
@@ -787,7 +821,7 @@ class DarkAngel(object):
             gte = "2010-01-01"
         if lt == None:
             lt = "2030-01-01"
-        url_list = self.nuclei_scan.read_url_list_by_time(gte,lt,offer_bounty)
+        url_list = self.nuclei_scan.read_url_list_by_time(gte, lt, offer_bounty)
         if url_list != None:
             self.nuclei_scan.write_url_list(program=filename, asset_list=url_list)
 
@@ -797,7 +831,7 @@ class DarkAngel(object):
         if lt == None:
             lt = "2030-01-01"
         # read_new_url_list_by_time 区别在于用的是update_time
-        url_list = self.nuclei_scan.read_new_url_list_by_time(gte,lt,offer_bounty)
+        url_list = self.nuclei_scan.read_new_url_list_by_time(gte, lt, offer_bounty)
         if url_list != None:
             self.nuclei_scan.write_url_list(program=filename, asset_list=url_list)
 
@@ -814,17 +848,18 @@ class DarkAngel(object):
         os.system("nuclei -ut")
 
     def add_new_program_from_file(self, program, offer_bounty, old_domains):
-        file = "/root/darkangel/"+str(program)+".txt"
+        file = "/root/darkangel/" + str(program) + ".txt"
         data = datetime.datetime.now()
         with open(file, "r") as f:
             for each in f:
                 each = each.strip("\n")
-                logger.log('INFO',f'Add {str(program)} - {each}')
+                logger.log('INFO', f'Add {str(program)} - {each}')
                 if str(each) not in old_domains:
                     asset_info = {'domain': str(each), 'resolved_report_count': 0, 'submission_state': 'open',
-                              'max_severity': 'critical', 'update_time': data, 'hackerone_private': "yes",
-                              'average_bounty_lower_amount': 0, 'launched_at': data,
-                              'average_bounty_upper_amount': 0, 'program': str(program), 'base_bounty': 0, 'platform': "hackerone", 'offer_bounty': offer_bounty}
+                                  'max_severity': 'critical', 'update_time': data, 'hackerone_private': "yes",
+                                  'average_bounty_lower_amount': 0, 'launched_at': data,
+                                  'average_bounty_upper_amount': 0, 'program': str(program), 'base_bounty': 0,
+                                  'platform': "hackerone", 'offer_bounty': offer_bounty}
                     self.es_helper.insert_one_doc(index="program-assets-1", asset_info=asset_info)
 
     def delete_by_query(self, index):
@@ -835,37 +870,52 @@ class DarkAngel(object):
         elif index == "spider":
             index = "spider-assets-1"
         query = {"query": {
-                    "bool": {
-                        "must": [
-                            {"match_phrase": {"url": "*"}}
-                        ]
-                    }
-                }}
+            "bool": {
+                "must": [
+                    {"match_phrase": {"url": "*"}}
+                ]
+            }
+        }}
         es.es_instance.delete_by_query(index=index, body=query)
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scan-new-domain" ,help="scan new domain from h1 and bc", action="store_true")
-    parser.add_argument("--add-domain-and-scan", help="scan new domain from h1 and bc", nargs="+")
-    parser.add_argument("--offer-bounty", help="set add domain is bounty or no bounty", choices=["yes","no"])
+    parser.add_argument("--add-new-domain", help="add new domain from h1 and bc", action="store_true")
+    parser.add_argument("--scan-domain-by-time", help="scan h1 and bc domain by launched time", nargs=2)
+    parser.add_argument("--scan-new-domain", help="add and scan new domain from h1 and bc", action="store_true")
+    parser.add_argument("--add-domain-and-scan", help="add and scan new domain self added", nargs="+")
+    parser.add_argument("--offer-bounty", help="set add domain is bounty or no bounty", choices=["yes", "no"])
     parser.add_argument("--nuclei-file-scan", help="scan new domain from h1 and bc", action="store_true")
     parser.add_argument("--nuclei-file-scan-by-new-temp", help="use new template scan five file by nuclei",
-                      action="store")
+                        action="store")
     parser.add_argument("--nuclei-file-scan-by-new-add-temp", help="add new template scan five file by nuclei",
-                      action="store")
+                        action="store")
     parser.add_argument("--nuclei-file-scan-by-temp-name", help="use template scan five file by nuclei",
-                      action="store")
+                        action="store")
     parser.add_argument("--nuclei-file-polling-scan", help="five file polling scan by nuclei",
-                      action="store_true")
+                        action="store_true")
     print(darkangel_banner)
     args = parser.parse_args()
     darkAngel = DarkAngel()
-
     if args.scan_new_domain:
         darkAngel.scan_new_domain()
-    elif args.add_domain_and_scan and args.offer_bounty=="yes":
+    elif args.add_new_domain:
+        darkAngel.add_new_domain()
+    elif args.scan_domain_by_time:
+        try:
+            gte = datetime.datetime.strptime(args.scan_domain_by_time[0], "%Y-%m-%d")
+            lt = datetime.datetime.strptime(args.scan_domain_by_time[1], "%Y-%m-%d")
+            if gte >= lt:
+                logger.log('INFO',"时间输入错误，之后的时间点需大于之前的时间点！")
+                return
+            else:
+                darkAngel.scan_domain_by_time(gte, lt)
+        except ValueError:
+            logger.log("参数为日期，格式为2022-12-12，请按照格式输入！")
+    elif args.add_domain_and_scan and args.offer_bounty == "yes":
         darkAngel.add_domain_and_scan(program_list=args.add_domain_and_scan, offer_bounty="yes")
-    elif args.add_domain_and_scan and args.offer_bounty=="no":
+    elif args.add_domain_and_scan and args.offer_bounty == "no":
         darkAngel.add_domain_and_scan(program_list=args.add_domain_and_scan, offer_bounty="no")
     elif args.nuclei_file_scan:
         darkAngel.nuclei_file_scan()
@@ -877,6 +927,7 @@ def main():
         darkAngel.nuclei_file_scan_by_temp(templateName=args.nuclei_file_scan_by_temp_name)
     elif args.nuclei_file_polling_scan:
         darkAngel.nuclei_file_polling_scan()
+
 
 if __name__ == "__main__":
     main()
