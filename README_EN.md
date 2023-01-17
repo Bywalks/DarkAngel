@@ -125,13 +125,15 @@ The directory mounted in the docker container does not have permission: Solution
 ## usage
 
 ```
-usage:  [-h] [--scan-new-domain]
-        [--add-domain-and-scan ADD_DOMAIN_AND_SCAN [ADD_DOMAIN_AND_SCAN ...]]
-        [--offer-bounty {yes,no}] [--nuclei-file-scan]
-        [--nuclei-file-scan-by-new-temp NUCLEI_FILE_SCAN_BY_NEW_TEMP]
-        [--nuclei-file-scan-by-new-add-temp NUCLEI_FILE_SCAN_BY_NEW_ADD_TEMP]
-        [--nuclei-file-scan-by-temp-name NUCLEI_FILE_SCAN_BY_TEMP_NAME]
-        [--nuclei-file-polling-scan] [--delete]
+usage: darkangel.py [-h] [--add-new-domain]
+                    [--scan-domain-by-time SCAN_DOMAIN_BY_TIME SCAN_DOMAIN_BY_TIME]
+                    [--scan-new-domain]
+                    [--add-domain-and-scan ADD_DOMAIN_AND_SCAN [ADD_DOMAIN_AND_SCAN ...]]
+                    [--offer-bounty {yes,no}] [--nuclei-file-scan]
+                    [--nuclei-file-scan-by-new-temp NUCLEI_FILE_SCAN_BY_NEW_TEMP]
+                    [--nuclei-file-scan-by-new-add-temp NUCLEI_FILE_SCAN_BY_NEW_ADD_TEMP]
+                    [--nuclei-file-scan-by-temp-name NUCLEI_FILE_SCAN_BY_TEMP_NAME]
+                    [--nuclei-file-polling-scan]
 
 DarkAngel is a white hat scanner. Every user makes the Internet more secure.
 
@@ -139,9 +141,12 @@ DarkAngel is a white hat scanner. Every user makes the Internet more secure.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --scan-new-domain     scan new domain from h1 and bc
+  --add-new-domain      add new domain from h1 and bc
+  --scan-domain-by-time SCAN_DOMAIN_BY_TIME SCAN_DOMAIN_BY_TIME
+                        scan h1 and bc domain by launched time
+  --scan-new-domain     add and scan new domain from h1 and bc
   --add-domain-and-scan ADD_DOMAIN_AND_SCAN [ADD_DOMAIN_AND_SCAN ...]
-                        scan new domain from h1 and bc
+                        add and scan new domain self added
   --offer-bounty {yes,no}
                         set add domain is bounty or no bounty
   --nuclei-file-scan    scan new domain from h1 and bc
@@ -154,6 +159,22 @@ optional arguments:
   --nuclei-file-polling-scan
                         five file polling scan by nuclei
 ```
+
+### --add-new-domain
+
+```$ python3 darkangel.py --add-new-domain```
+
+- Listen to the new domain names of hackerone and bugcrowd
+
+![](http://www.bywalks.com/image/add-new-domain.jpg)
+
+### --scan-domain-by-time
+
+```$ python3 darkangel.py --scan-domain-by-time begin-time end-time```
+
+- With the time interval as the condition, the pdomain in the es library is scanned for vulnerabilities. The development purpose of this module is to scan the pdomain in the library in batches to alleviate the problem of blocking the whole program at one time
+
+![](http://www.bywalks.com/image/scan-domain-by-time.jpg)
 
 ### --scan-new-domain
 
