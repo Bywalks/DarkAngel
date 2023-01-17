@@ -181,6 +181,7 @@ optional arguments:
 - 监听hackerone和bugcrowd新域名并进行扫描（第一次使用该程序不建议使用该参数，会把hackerone和bugcrowd域名全部添加进去并扫描，资产过多的情况下做好准备，扫描时间很长）
 
 ![](http://www.bywalks.com/image/scan-new-domain.jpg)
+
 ### --add-domain-and-scan
 
 ```$ python3 darkangel.py --add-domain-and-scan program-file-name1 program-file-name2 --offer-bounty yes/no```
