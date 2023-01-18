@@ -342,7 +342,17 @@ class DarkAngel(object):
         pdomain_list = self.get_pdomain_by_launched_time(gte, lt)
 
         # 2: 漏洞扫描模块-开始扫描
-        self.scan_module(pdomain_list=pdomain_list)
+        if pdomain_list:
+            message = f"发现新pdomain,开始进行扫描。"
+            self.vuln_mng.send_message(message=message)
+            self.scan_module(pdomain_list=pdomain_list)
+            # 添加bounty和no_bounty域名
+            self.save_new_url_list_by_time(begin_time=gte)
+            message = f"新pdomain扫描完成。"
+            self.vuln_mng.send_message(message=message)
+        else:
+            message = f"未发现新pdomain,等待半小时后进行扫描。"
+            self.vuln_mng.send_message(message=message)
 
     def add_domain_and_scan(self, program_list, offer_bounty):
         # 获取开始时间
