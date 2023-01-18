@@ -306,6 +306,13 @@ Bug反馈
 
 ## 最近更新
 
+#### [v0.0.3] - 2022-01-17
+
+**更新**  
+
+- 增加只添加hackerone和bugcrowd资产模块 - --add-new-domain
+- 增加以时间间隔为条件，对es库中pdomain进行漏洞扫描 - --scan-domain-by-time
+
 #### [v0.0.2] - 2022-12-27
 
 **更新**  
