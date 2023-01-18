@@ -351,7 +351,7 @@ class DarkAngel(object):
             message = f"新pdomain扫描完成。"
             self.vuln_mng.send_message(message=message)
         else:
-            message = f"未发现新pdomain,等待半小时后进行扫描。"
+            message = f"未发现新pdomain,请检查该时间段是否存在pdomain资产。"
             self.vuln_mng.send_message(message=message)
 
     def add_domain_and_scan(self, program_list, offer_bounty):
