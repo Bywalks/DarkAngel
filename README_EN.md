@@ -308,6 +308,13 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
+#### [v0.0.3] - 2022-01-17
+
+**Update**
+
+- Add only the hacker and bugrow asset modules -- add new domain
+- Add a vulnerability scan for pdomain in es database based on time interval -- scan-domain-by-time
+
 #### [v0.0.2] - 2022-12-27
 
 **update**  
