@@ -236,7 +236,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/python,windows,pycharm
-
-# User-defined settings
-config/setting.py
-config/api.py
