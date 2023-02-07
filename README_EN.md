@@ -311,6 +311,16 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
+#### [v0.0.4] - 2022-02-07
+
+**Update** 
+
+- Update xray to version 1.9.4 and update the configuration file
+- Update nuclei to version 2.8.8 and update the configuration file
+- Add missing httpx, naabu, crawlergo, whatweb
+
+
+
 #### [v0.0.3] - 2022-01-17
 
 **Update**

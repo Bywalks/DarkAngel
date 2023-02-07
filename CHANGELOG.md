@@ -6,7 +6,7 @@
 
 - 更新xray到1.9.4版本，并更新配置文件
 - 更新nuclei到2.8.8版本，并更新配置文件
-- 添加漏洞的httpx、naabu、crawlergo、whatweb
+- 添加遗漏的httpx、naabu、crawlergo、whatweb
 
 
 
