@@ -29,7 +29,7 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 
 ## 自动生成漏洞报告
 
-自动生成漏洞报告 - MarkDown格式 - 存放地址/root/darkangel/vulscan/results/report
+自动生成漏洞报告 - MarkDown格式 - 存放地址/root/Darkangel/vulscan/results/report
 
 ![](http://www.bywalks.com/image/report.jpg)
 
@@ -45,7 +45,7 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 
 可先查看如何获取配置：[企业微信开发接口文档](https://developer.work.weixin.qq.com/document/path/90487)
 
-获取参数后，在/root/darkangel/vconfig/config.ini中配置参数，即可启用企业微信通知
+获取参数后，在/root/Darkangel/vconfig/config.ini中配置参数，即可启用企业微信通知
 
 微信通知 - 漏洞结果
 
@@ -194,7 +194,7 @@ optional arguments:
 
 ![](http://www.bywalks.com/image/add_domain_and_scan2.jpg)
 
-扫描结束后，会把子域名结果存在在/root/darkangel/vulscan/results/urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内
+扫描结束后，会把子域名结果存在在/root/Darkangel/vulscan/results/urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内
 
 ### --nuclei-file-scan
 
