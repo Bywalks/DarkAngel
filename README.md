@@ -117,6 +117,7 @@ git clone https://github.com/Bywalks/DarkAngel.git
 
 添加执行权限
 chmod 777 /root/DarkAngel/vulscan/tools/*
+chmod 777 /root/DarkAngel/vulscan/tools/whatweb/*
 
 进行DarkAngel目录后即可使用
 ```

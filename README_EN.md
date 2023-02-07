@@ -119,6 +119,7 @@ git clone https://github.com/Bywalks/DarkAngel.git
 
 Add execution permissions
 chmod 777 /root/DarkAngel/vulscan/tools/*
+chmod 777 /root/DarkAngel/vulscan/tools/whatweb/*
 
 You can use it after into the DarkAngel directory
 ```
