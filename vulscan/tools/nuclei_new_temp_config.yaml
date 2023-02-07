@@ -7,48 +7,101 @@
 # path to file containing a list of target urls/hosts to scan (one per line)
 #list: 
 
-# template or template directory paths to include in the scan
-#templates: []
+# resume scan using resume.cfg (clustering will be disabled)
+#resume: 
+
+# scan all the ip's associated with dns record
+#scan-all-ips: false
+
+# ip version to scan of hostname (4,6) - (default 4)
+#ip-version: []
 
 # run only new templates added in latest nuclei-templates release
 new-templates: true
 
-# workflow or workflow directory paths to include in the scan
+# run new templates added in specific version
+#new-templates-version: []
+
+# automatic web scan using wappalyzer technology detection to tags mapping
+#automatic-scan: false
+
+# list of template or template directory to run (comma-separated, file)
+#templates: []
+
+# list of template urls to run (comma-separated, file)
+#template-url: []
+
+# list of workflow or workflow directory to run (comma-separated, file)
 #workflows: []
+
+# list of workflow urls to run (comma-separated, file)
+#workflow-url: []
 
 # validate the passed templates to nuclei
 #validate: false
-#id: [Drupal-avatar_uploader-xss,WordPress Plugin amministrazione-aperta 3.7.3 - LFI]
+
+# disable strict syntax check on templates
+#no-strict-syntax: false
+
+# displays the templates content
+#template-display: false
 
 # list all available templates
 #tl: false
 
-# execute a subset of templates that contain the provided tags
+# allowed domain list to load remote templates from
+#remote-template-domain: 
+
+# templates to run based on authors (comma-separated, file)
+#author: []
+
+# templates to run based on tags (comma-separated, file)
 #tags: []
 
-# tags from the default deny list that permit executing more intrusive templates
+# templates to exclude based on tags (comma-separated, file)
+#exclude-tags: []
+
+# tags to be executed even if they are excluded either by default or configuration
 #include-tags: []
 
-# exclude templates with the provided tags
-#exclude-tags: []
+# templates to run based on template ids (comma-separated, file)
+#template-id: []
+
+# templates to exclude based on template ids (comma-separated, file)
+#exclude-id: []
 
 # templates to be executed even if they are excluded either by default or configuration
 #include-templates: []
 
-# template or template directory paths to exclude
-exclude-templates: [misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml]
+# template or template directory to exclude (comma-separated, file)
+exclude-templates: [misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml,cves/2021/CVE-2021-43421.yaml]
 
-# templates to run based on severity. possible values: info, low, medium, high, critical
-severity: critical,high,medium,low
+# template matchers to exclude in result
+#exclude-matchers: []
 
-# templates to exclude based on severity. possible values: info, low, medium, high, critical
+# templates to run based on severity. possible values: info, low, medium, high, critical, unknown
+severity: critical, high, medium
+
+# templates to exclude based on severity. possible values: info, low, medium, high, critical, unknown
 #exclude-severity: 
 
-# execute templates that are (co-)created by the specified authors
-#author: []
+# templates to run based on protocol type. possible values: dns, file, http, headless, network, workflow, ssl, websocket, whois
+#type: 
+
+# templates to exclude based on protocol type. possible values: dns, file, http, headless, network, workflow, ssl, websocket, whois
+#exclude-type: 
+
+# templates to run based on expression condition
+#template-condition: []
 
 # output file to write found issues/vulnerabilities
 #output: 
+
+# store all request/response passed through nuclei to output directory
+#store-resp: false
+
+# store all request/response passed through nuclei to custom directory
+#store-resp-dir: output
 
 # display findings only
 #silent: false
@@ -62,14 +115,17 @@ severity: critical,high,medium,low
 # include request/response pairs in the jsonl output (for findings only)
 #include-rr: false
 
-# don't display match metadata
+# disable printing result metadata in cli output
 #no-meta: false
 
-# don't display timestamp metadata in cli output
-#no-timestamp: false
+# enables printing timestamp in cli output
+#timestamp: false
 
-# local nuclei reporting database (always use this to persist report data)
+# nuclei reporting database (always use this to persist report data)
 #report-db: 
+
+# display match failure status
+#matcher-status: false
 
 # directory to export results in markdown format
 #markdown-export: 
@@ -80,13 +136,25 @@ severity: critical,high,medium,low
 # path to the nuclei configuration file
 #config: 
 
+# enable following redirects for http templates
+#follow-redirects: false
+
+# follow redirects on the same host
+#follow-host-redirects: false
+
+# max number of redirects to follow for http templates
+#max-redirects: 10
+
+# disable redirects for http templates
+#disable-redirects: false
+
 # nuclei reporting module configuration file
 #report-config: 
 
-# custom headers in header:value format
+# custom header/cookie to include in all http request in header:value format (cli, file)
 header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36]
 
-# custom vars in var=value format
+# custom vars in key=value format
 #var: 
 
 # file containing resolver list for nuclei
@@ -95,17 +163,62 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 # use system dns resolving as error fallback
 #system-resolvers: false
 
+# disable clustering of requests
+#disable-clustering: false
+
 # enable passive http response processing mode
 #passive: false
+
+# force http2 connection on requests
+#force-http2: false
 
 # enable environment variables to be used in template
 #env-vars: false
 
-# interactsh server url for self-hosted instance
-# interactsh-server: 
+# client certificate file (pem-encoded) used for authenticating against scanned hosts
+#client-cert: 
+
+# client key file (pem-encoded) used for authenticating against scanned hosts
+#client-key: 
+
+# client certificate authority file (pem-encoded) used for authenticating against scanned hosts
+#client-ca: 
+
+# show match lines for file templates, works with extractors only
+#show-match-line: false
+
+# use ztls library with autofallback to standard one for tls13
+#ztls: false
+
+# tls sni hostname to use (default: input domain name)
+#sni: 
+
+# sandbox nuclei for safe templates execution
+#sandbox: false
+
+# network interface to use for network scan
+#interface: 
+
+# type of payload combinations to perform (batteringram,pitchfork,clusterbomb)
+#attack-type: 
+
+# source ip address to use for network scan
+#source-ip: 
+
+# override the default config path ($home/.config)
+#config-directory: 
+
+# max response size to read in bytes
+#response-size-read: 10485760
+
+# max response size to read in bytes
+#response-size-save: 1048576
+
+# interactsh server url for self-hosted instance (default: oast.pro,oast.live,oast.site,oast.online,oast.fun,oast.me)
+interactsh-server: https://googlet1.com
 
 # authentication token for self-hosted interactsh server
-#interactsh-token: 
+interactsh-token: googlet1
 
 # number of requests to keep in the interactions cache
 #interactions-cache-size: 5000
@@ -122,6 +235,24 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 # disable interactsh server for oast testing, exclude oast based templates
 #no-interactsh: false
 
+# enable uncover engine
+#uncover: false
+
+# uncover search query
+#uncover-query: []
+
+# uncover search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas) (default shodan)
+#uncover-engine: []
+
+# uncover fields to return (ip,port,host)
+#uncover-field: ip:port
+
+# uncover results to return
+#uncover-limit: 100
+
+# delay between uncover query requests in seconds (0 to disable)
+#uncover-delay: 1
+
 # maximum number of requests to send per second
 #rate-limit: 150
 
@@ -134,14 +265,26 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 # maximum number of templates to be executed in parallel
 #concurrency: 25
 
+# maximum number of headless hosts to be analyzed in parallel per template
+#headless-bulk-size: 10
+
+# maximum number of headless templates to be executed in parallel
+#headless-concurrency: 10
+
 # time to wait in seconds before timeout
-#timeout: 5
+#timeout: 10
 
 # number of times to retry a failed request
 #retries: 1
 
+# leave default http/https ports (eg. host:80,host:443)
+#leave-default-ports: false
+
 # max errors for a host before skipping from scan
 #max-host-error: 30
+
+# disable skipping host from scan based on errors
+#no-mhe: false
 
 # use a project folder to avoid sending same request multiple times
 #project: false
@@ -150,12 +293,24 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 #project-path: /tmp
 
 # stop processing http requests after the first match (may break template/workflow logic)
-#stop-at-first-path: false
+#stop-at-first-match: false
 
 # stream mode - start elaborating without sorting the input
 #stream: false
 
-# enable templates that require headless browser support
+# strategy to use while scanning(auto/host-spray/template-spray)
+#scan-strategy: 
+
+# timeout on input read
+#input-read-timeout: 
+
+# disable httpx probing for non-url input
+#no-httpx: false
+
+# disable stdin processing
+#no-stdin: false
+
+# enable templates that require headless browser support (root user on linux will disable sandbox)
 #headless: false
 
 # seconds to wait for each page in headless mode
@@ -167,6 +322,9 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 # use local installed chrome browser instead of nuclei installed
 #system-chrome: false
 
+# list available headless actions
+#list-headless-action: false
+
 # show all requests and responses
 #debug: false
 
@@ -176,35 +334,56 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 # show all received responses
 #debug-resp: false
 
-# url of the http proxy server
-#proxy-url: 
+# list of http/socks5 proxy to use (comma separated or file input)
+#proxy: []
 
-# url of the socks proxy server
-#proxy-socks-url: 
+# proxy all internal requests
+#proxy-internal: false
+
+# list all supported dsl function signatures
+#list-dsl-function: false
 
 # file to write sent requests trace log
 #trace-log: 
 
+# file to write sent requests error log
+#error-log: 
+
 # show nuclei version
 #version: false
+
+# enable nuclei hang monitoring
+#hang-monitor: false
 
 # show verbose output
 #verbose: false
 
+# optional nuclei memory profile dump file
+#profile-mem: 
+
 # display templates loaded for scan
 #vv: false
 
+# show variables dump for debugging
+#show-var-dump: false
+
+# enable pprof debugging server
+#enable-pprof: false
+
 # shows the version of the installed nuclei-templates
 #templates-version: false
+
+# run diagnostic check up
+#health-check: false
 
 # update nuclei engine to the latest released version
 #update: false
 
 # update nuclei-templates to latest released version
-#update-templates: false
+#update-templates: true
 
-# overwrite the default directory to install nuclei-templates
-update-directory: /root/nuclei-templates
+# custom directory to install / update nuclei-templates
+update-template-dir: /root/nuclei-templates
 
 # disable automatic nuclei/templates update check
 #disable-update-check: false
@@ -223,3 +402,66 @@ stats: true
 
 # port to expose nuclei metrics on
 #metrics-port: 9092
+
+# run scan on nuclei cloud
+#cloud: false
+
+# add specified data source (s3,github)
+#add-datasource: 
+
+# add target(s) to cloud
+#add-target: 
+
+# add template(s) to cloud
+#add-template: 
+
+# list previous cloud scans
+#list-scan: false
+
+# list scan output by scan id
+#list-output: 
+
+# list cloud target by id
+#list-target: false
+
+# list cloud template by id
+#list-template: false
+
+# list cloud datasource by id
+#list-datasource: false
+
+# list reporting sources
+#list-reportsource: false
+
+# delete cloud scan by id
+#delete-scan: 
+
+# delete target(s) from cloud
+#delete-target: 
+
+# delete template(s) from cloud
+#delete-template: 
+
+# delete specified data source
+#delete-datasource: 
+
+# disable specified reporting source
+#disable-reportsource: 
+
+# enable specified reporting source
+#enable-reportsource: 
+
+# get target content by id
+#get-target: 
+
+# get template content by id
+#get-template: 
+
+# disable scan/output storage on cloud
+#no-store: false
+
+# do not display pretty-printed tables
+#no-tables: false
+
+# limit the number of output to display
+#limit: 100
