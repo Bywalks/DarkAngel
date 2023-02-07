@@ -115,6 +115,9 @@ cd root
 下载源代码
 git clone https://github.com/Bywalks/DarkAngel.git
 
+添加执行权限
+chmod 777 /root/DarkAngel/vulscan/tools/*
+
 进行DarkAngel目录后即可使用
 ```
 
@@ -283,7 +286,7 @@ url列表存放位置
 微信通知 - 漏洞结果
 
  ![](http://www.bywalks.com/image/result_vx2.png)
- 
+
 ## 反馈及贡献代码
 
 首先感谢您花费时间来使DarkAngel变得更好用👍

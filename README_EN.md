@@ -117,9 +117,12 @@ cd root
 Download source code
 git clone https://github.com/Bywalks/DarkAngel.git
 
+Add execution permissions
+chmod 777 /root/DarkAngel/vulscan/tools/*
+
 You can use it after into the DarkAngel directory
 ```
-                                                  
+
 The directory mounted in the docker container does not have permission: Solution 1. When running the container: --privileged=true; Solution 2. The host runs the command: setenforce 0
 
 ## usage
