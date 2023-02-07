@@ -106,7 +106,7 @@ Pull Scanner Image
 docker pull bywalkss/darkangel:v0.0.2
 
 Deployment Scanner
-docker run -it -d -v /root/Darkangel:/root/Darkangel --name darkangel bywalkss/darkangel:v0.0.2
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.2
 
 Enter the scanner docker
 docker exec -it docker_id /bin/bash
@@ -199,7 +199,7 @@ optional arguments:
 
 ![](http://www.bywalks.com/image/add_domain_and_scan2.jpg)
 
-After scanning, the subdomain name results will be stored in the /root/Darkangel/vulscan/results/urls directory，They are stored in the，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt In document
+After scanning, the subdomain name results will be stored in the /root/DarkAngel/vulscan/results/urls directory，They are stored in the，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt In document
 
 ### --nuclei-file-scan
 

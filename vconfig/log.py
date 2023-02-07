@@ -9,7 +9,7 @@ from loguru import logger
 # Github：https://github.com/bywalks
 
 # 路径设置，日志保存路径
-log_path = "/root/Darkangel/vulscan/results/log/vulnlog"
+log_path = "/root/DarkAngel/vulscan/results/log/vulnlog"
 #print(log_path)
 # 日志配置
 # 终端日志输出格式
