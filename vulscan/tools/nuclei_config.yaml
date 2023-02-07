@@ -74,7 +74,7 @@
 #include-templates: []
 
 # template or template directory to exclude (comma-separated, file)
-exclude-templates: [misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml,cves/2021/CVE-2021-43421.yaml,CVE-2022-45362.yaml,cves/2021/CVE-2021-25118.yaml,takeovers/github-takeover.yaml,network/ftp-anonymous-login.yaml,takeovers/netlify-takeover.yaml,cves/2020/CVE-2020-35489.yaml]
+exclude-templates: [misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml,cves/2021/CVE-2021-43421.yaml,CVE-2022-45362.yaml,cves/2021/CVE-2021-25118.yaml,takeovers/github-takeover.yaml,network/ftp-anonymous-login.yaml,takeovers/netlify-takeover.yaml,cves/2020/CVE-2020-35489.yaml,cves/2021/CVE-2021-20323.yaml,ssl/weak-cipher-suites.yaml,cves/2022/CVE-2022-36883.yaml]
 
 # template matchers to exclude in result
 #exclude-matchers: []
