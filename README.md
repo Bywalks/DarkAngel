@@ -104,7 +104,7 @@ docker start elasticsearch
 docker pull bywalkss/darkangel:v0.0.3
 
 部署扫描器
-docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.2
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.3
 
 进入扫描器docker
 docker exec -it docker_id /bin/bash
