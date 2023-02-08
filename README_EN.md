@@ -103,7 +103,7 @@ Scanner image:
 
 ```
 Pull Scanner Image
-docker pull bywalkss/darkangel:v0.0.2
+docker pull bywalkss/darkangel:v0.0.3
 
 Deployment Scanner
 docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.2
