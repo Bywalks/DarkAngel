@@ -215,10 +215,10 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 #response-size-save: 1048576
 
 # interactsh server url for self-hosted instance (default: oast.pro,oast.live,oast.site,oast.online,oast.fun,oast.me)
-interactsh-server: https://googlet1.com
+#interactsh-server:
 
 # authentication token for self-hosted interactsh server
-interactsh-token: googlet1
+#interactsh-token:
 
 # number of requests to keep in the interactions cache
 #interactions-cache-size: 5000
