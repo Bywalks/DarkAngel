@@ -133,6 +133,38 @@ class NucleiScan(object):
         new_url_list = self.es_helper.query_domains_by_dsl(self.domain_index, dsl)
         return new_url_list
 
+    def read_url_list_by_time1(self, gt=None, lt=None, offer_bounty=None, platform=None):
+        '''根据筛选条件读取url的list'''
+        if gt==None:
+            gt = "2010-01-01T12:10:30Z"
+        if lt==None:
+            lt = "2028-01-01T12:10:30Z"
+        dsl = {
+                "query": {
+                    "bool": {
+                        "must":
+                            [
+                                {"match_phrase": {"offer_bounty": offer_bounty}},
+                                {"match_phrase": {"platform": platform}},
+                                {"match_phrase": {"alive": "1"}}
+                            ],
+                        "filter": [
+                            {
+                                "range": {
+                                    "launched_at": {
+                                        "gte": gt,
+                                        "lt": lt
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+            "_source": ["url"]
+            }
+        new_url_list = self.es_helper.query_domains_by_dsl(self.domain_index, dsl)
+        return new_url_list
+
     def read_spider_list_by_program(self, program):
         '''根据筛选条件读取url的list'''
         dsl = {

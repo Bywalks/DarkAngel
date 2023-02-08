@@ -690,20 +690,19 @@ class DarkAngel(object):
             message = f"Nuclei模板扫描\n开始扫描"
             self.vuln_mng.send_message(message=message)
 
-            # 开始扫描bc赏金部分
-            self.nuclei_five_file_scan(offer_bounty="yes", platform="bc")
-            # 通知
-            message = "Nuclei-bc模板赏金部分扫描完成"
-            self.vuln_mng.send_message(message=message)
-
-            time.sleep(15)
             # 开始扫描h1赏金部分
             self.nuclei_five_file_scan(offer_bounty="yes", platform="h1")
             # 通知
             message = "Nuclei-h1模板赏金部分扫描完成"
             self.vuln_mng.send_message(message=message)
 
-            '''
+            time.sleep(15)
+            # 开始扫描bc赏金部分
+            self.nuclei_five_file_scan(offer_bounty="yes", platform="bc")
+            # 通知
+            message = "Nuclei-bc模板赏金部分扫描完成"
+            self.vuln_mng.send_message(message=message)
+
             time.sleep(15)
             # 开始扫描h1非赏金部分
             self.nuclei_five_file_scan(offer_bounty="no", platform="h1")
@@ -717,7 +716,6 @@ class DarkAngel(object):
             # 通知
             message = "Nuclei-bc模板非赏金部分扫描完成"
             self.vuln_mng.send_message(message=message)
-            '''
             time.sleep(7200)
 
     def nuclei_file_scan_by_new_temp(self, version):
@@ -888,6 +886,44 @@ class DarkAngel(object):
         }}
         es.es_instance.delete_by_query(index=index, body=query)
 
+    def save_new_url_list1(self):
+        print("1")
+        self.write_new_url_list_by_time1(gte="2000-10-21",lt="2013-10-21",filename="hackerone_bounty_temp_01", offer_bounty="yes", platform="hackerone")
+        self.write_new_url_list_by_time1(gte="2013-10-21", lt="2018-10-21", filename="hackerone_bounty_temp_02",offer_bounty="yes", platform="hackerone")
+        self.write_new_url_list_by_time1(gte="2018-10-21", lt="2030-10-21", filename="hackerone_bounty_temp_03",
+                                         offer_bounty="yes", platform="hackerone")
+        #self.write_new_url_list_by_time1(filename="hackerone_bounty_temp", offer_bounty="yes", platform="hackerone")
+        #self.write_new_url_list_by_time1(filename="hackerone_no_bounty_temp", offer_bounty="no", platform="hackerone")
+        self.write_new_url_list_by_time1(gte="2000-10-21", lt="2013-10-21", filename="hackerone_no_bounty_temp_01",
+                                         offer_bounty="no", platform="hackerone")
+        self.write_new_url_list_by_time1(gte="2013-10-21", lt="2018-10-21", filename="hackerone_no_bounty_temp_02",
+                                         offer_bounty="no", platform="hackerone")
+        self.write_new_url_list_by_time1(gte="2018-10-21", lt="2030-10-21", filename="hackerone_no_bounty_temp_03",
+                                         offer_bounty="no", platform="hackerone")
+        #self.write_new_url_list_by_time1(filename="bugcrowd_bounty_temp", offer_bounty="yes", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2000-10-21", lt="2013-10-21", filename="bugcrowd_bounty_temp_01",
+                                         offer_bounty="yes", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2013-10-21", lt="2018-10-21", filename="bugcrowd_bounty_temp_02",
+                                         offer_bounty="yes", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2018-10-21", lt="2030-10-21", filename="bugcrowd_bounty_temp_03",
+                                         offer_bounty="yes", platform="bugcrowd")
+        #self.write_new_url_list_by_time1(filename="bugcrowd_no_bounty_temp", offer_bounty="no", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2000-10-21", lt="2013-10-21", filename="bugcrowd_no_bounty_temp_01",
+                                         offer_bounty="no", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2013-10-21", lt="2018-10-21", filename="bugcrowd_no_bounty_temp_02",
+                                         offer_bounty="no", platform="bugcrowd")
+        self.write_new_url_list_by_time1(gte="2018-10-21", lt="2030-10-21", filename="bugcrowd_no_bounty_temp_03",
+                                         offer_bounty="no", platform="bugcrowd")
+
+    def write_new_url_list_by_time1(self, gte=None, lt=None, filename=None, offer_bounty=None, platform=None):
+        if gte == None:
+            gte = "2010-01-01"
+        if lt == None:
+            lt = "2030-01-01"
+        # read_new_url_list_by_time 区别在于用的是update_time
+        url_list = self.nuclei_scan.read_url_list_by_time1(gt=gte,lt=lt,offer_bounty=offer_bounty,platform=platform)
+        if url_list != None:
+            self.nuclei_scan.write_url_list(program=filename, asset_list=url_list)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -908,6 +944,7 @@ def main():
     print(darkangel_banner)
     args = parser.parse_args()
     darkAngel = DarkAngel()
+
     if args.scan_new_domain:
         darkAngel.scan_new_domain()
     elif args.add_new_domain:
@@ -937,7 +974,6 @@ def main():
         darkAngel.nuclei_file_scan_by_temp(templateName=args.nuclei_file_scan_by_temp_name)
     elif args.nuclei_file_polling_scan:
         darkAngel.nuclei_file_polling_scan()
-
 
 if __name__ == "__main__":
     main()
