@@ -1,0 +1,6 @@
+btd3-assets.nkstatic.com
+btd5-assets.nkstatic.com
+btd7-assets.nkstatic.com
+btd9-assets.nkstatic.com
+btd4-assets.nkstatic.com
+btd8-assets.nkstatic.com

@@ -1,0 +1,280 @@
+.TH WHATWEB 1 "December 14th, 2020"
+.SH NAME
+WhatWeb \- Next generation Web scanner. Identify technologies used by websites.
+.SH SYNOPSIS
+.B whatweb
+.RI [ options ] 
+.RI <URLs>
+
+.br
+.SH DESCRIPTION
+.PP
+WhatWeb identifies websites. It's goal is to answer the question, "What is that Website?". WhatWeb recognises web technologies including content management systems (CMS), blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded devices. WhatWeb has over 1800 plugins, each to recognise something different. WhatWeb also identifies version numbers, email addresses, account ID's, web framework modules, SQL errors, and more.
+
+WhatWeb can be stealthy and fast, or thorough but slow. WhatWeb supports an aggression level to control the trade off between speed and reliability. When you visit a website in your browser, the transaction includes many hints of what web technologies are powering that website. Sometimes a single webpage visit contains enough information to identify a website but when it does not, WhatWeb can interrogate the website further. The default level of aggression, called 'passive', is the fastest and requires only one HTTP request of a website. This is suitable for scanning public websites. More aggressive modes were developed for in penetration tests.
+
+Most WhatWeb plugins are thorough and recognise a range of cues from subtle to obvious. For example, most WordPress websites can be identified by the meta HTML tag, e.g. '<meta name="generator" content="WordPress 2.6.5">', but a minority of WordPress websites remove this identifying tag but this does not thwart WhatWeb. The WordPress WhatWeb plugin has over 15 tests, which include checking the favicon, default installation files, login pages, and checking for "/wp-content/" within relative links.
+
+.TP
+.B
+Features:
+.TP
+	* Over 1800 plugins
+.TP
+	* Control the trade off between speed/stealth and reliability
+.TP
+	* Performance tuning. Control how many websites to scan concurrently.
+.TP
+	* Multiple log formats: Brief (greppable), Verbose (human readable), XML, JSON, MagicTree, RubyObject, MongoDB, SQL.
+.TP
+	* Proxy support including TOR
+.TP
+	* Custom HTTP headers
+.TP
+	* Basic HTTP authentication
+.TP
+	* Control over webpage redirection
+.TP
+	* IP address ranges
+.TP
+	* Fuzzy matching
+.TP
+	* Result certainty awareness
+.TP
+	* Custom plugins defined on the command line
+.TP
+	* IDN (International Domain Name) support
+
+
+.SH TARGET SELECTION
+.TP
+.B \<TARGETs\>
+Enter URLs, hostnames, IP adddresses, filenames or IP ranges in CIDR, x.x.x-x, or x.x.x.x-x.x.x.x format.
+.TP
+.B \-\-input-file=FILE \-i
+Identify URLs found in FILE
+.SH TARGET MODIFICATION
+.TP
+.B \-\-url-prefix
+Add a prefix to target URLs
+.TP
+.B \-\-url-suffix
+Add a suffix to target URLs
+.TP
+.B \-\-url-pattern
+Insert the targets into a URL. Requires --input-file,
+eg. www.example.com/%insert%/robots.txt
+.SH AGGRESSION
+.TP
+The aggression level controls the trade-off between speed/stealth and reliability.
+.TP
+.B \-\-aggression \-a=LEVEL
+Set the aggression level. Default: 1.
+.TP .nf
+ 1. Stealthy       Makes one HTTP request per target and also follows redirects. 
+ 3. Aggressive     If a level 1 plugin is matched, additional requests will be made.
+ 4. Heavy          Makes a lot of HTTP requests per target. URLs from all plugins are attempted.
+.ni
+.SH HTTP OPTIONS
+.TP
+.B  \-\-user-agent, \-U=AGENT
+Identify as AGENT instead of WhatWeb/0.4.9.
+.TP
+.B  \-\-header, \-H
+Add an HTTP header. eg "Foo:Bar". Specifying a default header will replace it. Specifying an empty value, e.g. "User-Agent:" will remove it.
+.TP
+.B  \-\-follow\-redirect=WHEN
+Control when to follow redirects. WHEN may be `never', `http-only', `meta-only', `same-site', or `always'. Default: always.
+.TP
+.B  \-\-max\-redirects=NUM
+Maximum number of redirects. Default: 10.
+
+.SH AUTHENTICATION
+.TP
+.B  \-\-user, \-u=<user:password>
+HTTP basic authentication.
+.TP
+.B  \-\-cookie, \-c=COOKIES
+Use cookies, e.g. 'name=value; name2=value2'.
+
+.SH PROXY
+.B  \-\-proxy
+<hostname[:port]> Set proxy hostname and port. Default: 8080.
+.TP
+.B  \-\-proxy-user
+<username:password> Set proxy user and password.
+
+.SH PLUGINS
+.TP
+.B  \-\-list\-plugins, \-l
+List all plugins.
+.TP
+.B  \-\-info\-plugins, \-I=[SEARCH]
+List all plugins with detailed information. Optionally search with keywords in a comma delimited list.
+.TP
+.B  \-\-search\-plugins=STRING
+Search plugins for a keyword.
+.TP
+.B  \-\-plugins, -p=LIST
+Select plugins. LIST is a comma delimited set of selected plugins. Default is all. 
+Each element can be a directory, file or plugin name and can optionally have a modifier, +/-.
+.TP
+.nf
+Examples: +/tmp/moo.rb,+/tmp/foo.rb
+title,md5,+./plugins-disabled/
+./plugins-disabled,-md5
+\-p + is a shortcut for -p +plugins\-disabled.
+.ni
+.TP
+.B  \-\-grep, \-g=STRING|REGEXP
+Search for STRING or a Regular Expression. Shows only the results that match.
+.TP
+.nf
+Examples: \-\/-grep "hello"
+\-\-grep "/he[l]*o/"
+.ni
+.TP
+.B  \-\-custom\-plugin=DEFINITION
+Define a custom plugin named Custom-Plugin,
+.TP .nf
+Examples: ":text=>'powered by abc'"
+":version=>/powered[ ]?by ab[0-9]/"
+":ghdb=>'intitle:abc \"powered by abc\"'"
+":md5=>'8666257030b94d3bdb46e05945f60b42'"
+"{:text=>'powered by abc'}"
+.ni
+.TP
+.B  \-\-dorks=PLUGIN
+List Google dorks for the selected plugin.
+
+
+.SH OUTPUT
+.TP
+.B  \-\-verbose, \-v
+Verbose output includes plugin descriptions. Use twice for debugging.
+.TP
+.B  \-\-colour,\-\-color=WHEN
+control whether colour is used. WHEN may be `never', `always', or `auto'.
+.TP
+.B  \-\-quiet, \-q
+Do not display brief logging to STDOUT.
+.TP
+.B  \-\-no\-errors
+Suppress error messages.
+
+.SH LOGGING
+.TP
+.B  \-\-log\-brief=FILE
+Log brief, one\-line output.
+.TP
+.B  \-\-log\-verbose=FILE
+Log verbose output.
+.TP
+.B  \-\-log\-errors=FILE
+Log errors.
+.TP
+.B  \-\-log\-xml=FILE
+Log XML format.
+.TP
+.B  \-\-log\-json=FILE
+Log JSON format.
+.TP
+.B  \-\-log\-sql=FILE
+Log SQL INSERT statements.
+.TP
+.B  \-\-log\-sql\-create=FILE
+Create SQL database tables.
+.TP
+.B  \-\-log\-json\-verbose=FILE
+Log JSON Verbose format.
+.TP
+.B  \-\-log\-magictree=FILE
+Log MagicTree XML format.
+.TP
+.B  \-\-log\-object=FILE
+Log Ruby object inspection format.
+.TP
+.B  \-\-log\-mongo\-database
+Name of the MongoDB database.
+.TP
+.B  \-\-log\-mongo\-collection
+Name of the MongoDB collection. Default: whatweb.
+.TP
+.B  \-\-log\-mongo\-host
+MongoDB hostname or IP address. Default: 0.0.0.0.
+.TP
+.B  \-\-log\-mongo\-username
+MongoDB username. Default: nil.
+.TP
+.B  \-\-log\-mongo\-password
+MongoDB password. Default: nil.
+.TP
+.B  \-\-log\-elastic\-index
+Name of the index to store results. Default: whatweb 
+.TP
+.B  \-\-log\-elastic\-host
+Host:port of the elastic http interface. Default: 127.0.0.1:9200s
+  
+
+.SH PERFORMANCE & STABILITY
+.TP
+.B  \-\-max\-threads, \-t
+Number of simultaneous threads. Default: 25.
+.TP
+.B  \-\-open\-timeout
+Time in seconds. Default: 15.
+.TP
+.B  \-\-read\-timeout
+Time in seconds. Default: 30.
+.TP
+.B  \-\-wait=SECONDS
+Wait SECONDS between connections. This is useful when using a single thread.
+
+.SH HELP & MISCELLANEOUS
+.TP
+.B  \-\-short\-help
+Short usage help.
+.TP
+.B  \-\-help, \-h
+Complete usage help.
+.TP
+.B  \-\-debug
+Raise errors in plugins.
+.TP
+.B  \-\-version
+Display version information.
+
+.SH EXAMPLE USAGE
+.TP
+.B Scan example.com.
+ ./whatweb example.com
+.TP
+.B Scan reddit.com slashdot.org with verbose plugin descriptions.
+ ./whatweb -v reddit.com slashdot.org
+.TP
+.B An aggressive scan of wired.com detects the exact version of WordPress.
+ ./whatweb -a 3 www.wired.com
+.TP
+.B Scan the local network quickly and suppress errors.
+ whatweb --no-errors 192.168.0.0/24
+.TP
+.B Scan the local network for https websites.
+ whatweb --no-errors --url-prefix https://192.168.0.0/24
+.TP
+.B Scan for crossdomain policies in the Alexa Top 1000.
+ ./whatweb -i plugin-development/alexa-top-100.txt --url-suffix /crossdomain.xml -p crossdomain_xml
+
+
+.SH BUGS
+Report bugs and feature requests to https://github.com/urbanadventurer/WhatWeb
+
+.SH AUTHOR
+Developed by Andrew Horton (urbanadventurer) and Brendan Coles (bcoles).
+
+.SH HOMEPAGE
+https://www.morningstarsecurity.com/research/whatweb
+
+.SH SOURCECODE
+https://github.com/urbanadventurer/WhatWeb/
+.PP
+
