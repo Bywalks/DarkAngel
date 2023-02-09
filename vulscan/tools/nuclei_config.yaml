@@ -380,7 +380,7 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 #update: false
 
 # update nuclei-templates to latest released version
-update-templates: true
+#update-templates: false
 
 # custom directory to install / update nuclei-templates
 update-template-dir: /root/nuclei-templates
