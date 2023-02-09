@@ -1,5 +1,14 @@
 ## 最近更新
 
+#### [v0.0.5] - 2022-02-09
+
+**更新**  
+
+- 修复宿主机更改nuclei配置后docker使用不生效的bug，扫描器镜像bywalkss/darkangel更新到v0.0.4
+- 更新nuclei_config.yaml、nuclei_new_temp_config.yaml文件
+
+
+
 #### [v0.0.4] - 2022-02-07
 
 **更新**  

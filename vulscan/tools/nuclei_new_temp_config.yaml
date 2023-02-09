@@ -74,10 +74,10 @@ new-templates: true
 #include-templates: []
 
 # template or template directory to exclude (comma-separated, file)
-exclude-templates: [misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml,cves/2021/CVE-2021-43421.yaml]
+#exclude-templates: []
 
 # template matchers to exclude in result
-#exclude-matchers: []
+exclude-templates: [cves/2022/CVE-2022-1595.yaml,cves/2020/CVE-2020-2551.yaml,cves/2022/CVE-2022-21500.yaml,cves/2020/CVE-2020-10770.yaml,cves/2021/CVE-2021-24917.yaml,exposures/configs/git-config.yaml,misconfiguration/unauthenticated-varnish-cache-purge.yaml,cves/2017/CVE-2017-5487.yaml,cves/2018/CVE-2018-15473.yaml,cves/2016/CVE-2016-6210.yaml,ssl/expired-ssl.yaml,technologies/dwr-index-detect.yaml,cves/2021/CVE-2021-43421.yaml,CVE-2022-45362.yaml,cves/2021/CVE-2021-25118.yaml,takeovers/github-takeover.yaml,network/ftp-anonymous-login.yaml,takeovers/netlify-takeover.yaml,cves/2020/CVE-2020-35489.yaml,ssl/weak-cipher-suites.yaml,cves/2022/CVE-2022-36883.yaml,takeovers/github-takeover.yaml,cves/2021/CVE-2021-20323.yaml,misconfiguration/wildcard-postmessage.yaml,cves/2022/CVE-2022-23779.yaml,cves/2020/CVE-2020-14181.yaml,cves/2021/CVE-2021-21087.yaml]
 
 # templates to run based on severity. possible values: info, low, medium, high, critical, unknown
 severity: critical, high, medium
@@ -380,7 +380,7 @@ header: [User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 #update: false
 
 # update nuclei-templates to latest released version
-#update-templates: true
+#update-templates: false
 
 # custom directory to install / update nuclei-templates
 update-template-dir: /root/nuclei-templates

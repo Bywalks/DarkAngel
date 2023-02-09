@@ -31,7 +31,7 @@ Currently supported features：
 
 Welcome to submit some vulnerability templates to this project
                            
-Automatically generate vulnerability report - MarkDown format - storage address/root/darkangel/vulscan/results/report
+Automatically generate vulnerability report - MarkDown format - storage address/root/DarkAngel/vulscan/results/report
 
 ![](http://www.bywalks.com/image/report.jpg)
 
@@ -103,10 +103,10 @@ Scanner image:
 
 ```
 Pull Scanner Image
-docker pull bywalkss/darkangel:v0.0.3
+docker pull bywalkss/darkangel:v0.0.4
 
 Deployment Scanner
-docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.3
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.4
 
 Enter the scanner docker
 docker exec -it docker_id /bin/bash
@@ -311,6 +311,15 @@ Vulnerability template submission
 Welcome to submit vulnerability templates in [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions). Open source projects require everyone's contribution.
                                                   
 ## Recent Updates
+
+#### [v0.0.5] - 2022-02-09
+
+**Update** 
+
+- Fix the bug that does not work in the docker after the host changes the nuclei configuration, and update the scanner image bywalks/darkangle to v0.04
+- Update nuclei_config.yaml、nuclei_new_temp_config.yaml file
+
+
 
 #### [v0.0.4] - 2022-02-07
 
