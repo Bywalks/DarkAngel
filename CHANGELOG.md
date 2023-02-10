@@ -53,4 +53,6 @@
 
 ## 待上线功能
 
-- XX
+- 漏洞结果截图
+- 优化漏洞报告template
+- 添加通知tg/slack/email的api
