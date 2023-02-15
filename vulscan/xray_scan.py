@@ -39,7 +39,7 @@ NUM_SCAN = 1
 class XrayScan(object):
     def __init__(self):
         self.xray_path = CUR_DIR + "/tools/xray"
-        self.xray_config = CUR_DIR + "/tools/xray_config.yaml"
+        self.xray_config = CUR_DIR + "/tools/config.yaml"
         self.xray_cmd = f"{self.xray_path} --config {self.xray_config} "
         self.spiderResultDir = CUR_DIR + "/results/spider"
         self.es_helper = ESHelper(ES_HOSTS, ES_USER, ES_PASSWD)

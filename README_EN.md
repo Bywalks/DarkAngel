@@ -312,6 +312,14 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
+#### [v0.0.6] - 2022-02-15
+
+**Update** 
+
+- Fix the bug that xray does not run
+
+
+
 #### [v0.0.5] - 2022-02-09
 
 **Update** 

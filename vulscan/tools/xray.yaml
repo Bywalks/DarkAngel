@@ -10,5 +10,5 @@
   disabled_plugins: []
   plugin_path:
     - ./plugin
-  module_config: module.xray.yaml
-  plugin_config: plugin.xray.yaml
+  module_config: ./vulscan/tools/module.xray.yaml
+  plugin_config: ./vulscan/tools/plugin.xray.yaml
