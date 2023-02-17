@@ -8,7 +8,7 @@ AEM QueryBuilder Internal Path Read
 1. Visit [website]
 2. See the data.
 
-## Image
+## Below is a screenshot
 {}
 
 ## Other affected assets

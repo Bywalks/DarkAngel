@@ -8,7 +8,7 @@ Druid is a database connection pool for monitoring created by Alibaba’s databa
 1. Visit [website]
 2. See the data.
 
-## Images
+## Below is a screenshot
 {}
 
 ## Supporting Material/References

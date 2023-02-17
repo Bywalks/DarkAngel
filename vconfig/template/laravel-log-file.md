@@ -8,7 +8,7 @@ The log file of this Laravel web app might reveal details on the inner workings 
 1. Visit [website]
 2. See the data.
 
-## Image
+## Below is a screenshot
 {}
 
 ## References

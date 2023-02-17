@@ -8,7 +8,7 @@ The phpinfo() is a debug functionality that prints out detailed information on b
 1. Visit [website]
 2. See the data.
 
-## Images
+## Below is a screenshot
 {}
 
 ### References

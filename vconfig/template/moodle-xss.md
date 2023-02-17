@@ -8,7 +8,7 @@ XSS in moodle via redirect_uri parameter.Reflected cross-site scripting (XSS) ar
 1. Go to: [website]
 2. Boom
 
-## Image
+## Below is a screenshot
 {}
 
 ## Supporting Material/References

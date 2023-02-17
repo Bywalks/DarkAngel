@@ -8,7 +8,7 @@ Improper sanitization of CRLF sequences.
 1. Visit [website]
 2. See the Image.
 
-## Image
+## Below is a screenshot
 
 ## Impact
 Can be used in combination with other vulnerabilities (if any) / factors, for example:

@@ -8,7 +8,7 @@ The remote WordPress installation has the `wp-config` file remotely accessible a
 1. [website]
 2. See the data.
 
-## Image
+## Below is a screenshot
 {}
 
 ## Impact

@@ -13,7 +13,7 @@ Visit the following URL: [website]. The HTTP response will show the Spring Boot 
 **spring.datasource.url:"jdbc:sqlserver://sql004010l.app.123.com;databaseName=UEComProdFMADB"**
 **http.nonProxyHosts:"localhost|127.0.0.1|19.0.0.0/8|10.0.0.0/8|172.16.0.0/12|*.123.com"**
 
-## Images
+## Below is a screenshot
 {}
 
 ## Other affected sites

@@ -8,7 +8,7 @@ IBM WebSphere Application Server is vulnerable to server-side request forgery (S
 1. Visit [website]
 2. See the data.
 
-## Image
+## Below is a screenshot
 {}
 
 ## Other affected assets

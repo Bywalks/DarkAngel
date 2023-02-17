@@ -160,6 +160,7 @@ class VulnManager(object):
     def generate_report_from_nuclei(self, vuln_info):
         host_name = self.es_helper.remove_http_or_https(vuln_info['website']).split(":")[0].split("/")[0]
         report_name = f"{vuln_info['scan_detail']['template-id']}_{host_name}.md"
+        vuln_image_name = f"{vuln_info['scan_detail']['template-id']}_{host_name}.png"
         report_file_name = f"{self.report_resultDir}/{report_name}"
         logger.log('INFOR', "Generate report from nuclei.")
         logger.log('INFOR', f"Website: {report_name}")
@@ -168,7 +169,7 @@ class VulnManager(object):
         else:
             with open(report_file_name,'a+') as f:
                 f.write("## Title\n")
-                f.write(f"{vuln_info['scan_detail']['info']['name']}\n\n")
+                f.write(f"{vuln_info['scan_detail']['info']['name']} - {vuln_info['scan_detail']['host']}\n\n")
 
                 f.write("## Summary\n")
                 if "description" in vuln_info['scan_detail']['info']:
@@ -180,7 +181,8 @@ class VulnManager(object):
                 f.write(f"1. {vuln_info['scan_detail']['matched-at']}\n")
                 f.write(f"2. See the data.\n\n")
 
-                f.write("## Image\n\n")
+                f.write("## Image\n")
+                f.write(f"![]({vuln_image_name})\n\n")
 
                 if "reference" in vuln_info['scan_detail']['info']:
                     f.write("## Reference\n")
@@ -195,6 +197,7 @@ class VulnManager(object):
         host_name = self.es_helper.remove_http_or_https(vuln_info['website']).split(":")[0].split("/")[0]
         vuln_name = vuln_info['vuln_name'].replace("/","_")
         report_name = f"{vuln_name}_{host_name}.md"
+        vuln_image_name = f"{vuln_name}_{host_name}.png"
         report_file_name = f"{self.report_resultDir}/{report_name}"
         logger.log('INFOR', "Generate report from xray.")
         logger.log('INFOR', f"Website: {report_name}")
@@ -203,7 +206,7 @@ class VulnManager(object):
         else:
             with open(report_file_name, 'a+') as f:
                 f.write("## Title\n")
-                f.write(f"{vuln_name}\n\n")
+                f.write(f"{vuln_name} - [{host_name}]\n\n")
 
                 f.write("## Summary\n")
                 f.write("\n")
@@ -212,7 +215,8 @@ class VulnManager(object):
                 f.write(f"1. {vuln_info['scan_detail']['addr']}\n")
                 f.write(f"2. See the data.\n")
 
-                f.write("## Image\n\n")
+                f.write("## Image\n")
+                f.write(f"![]({vuln_image_name})\n\n")
 
                 f.write("## Reference\n")
                 f.write("\n")

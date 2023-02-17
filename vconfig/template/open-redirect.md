@@ -1,5 +1,5 @@
 ## Title 
-Open Redirect Vulnerability - []
+Open Redirect Vulnerability - [website]
 
 ## Summary
 There is an open redirection vulnerability that allows an attacker to redirect anyone to malicious sites.
