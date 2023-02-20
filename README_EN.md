@@ -104,10 +104,10 @@ Scanner image:
 
 ```
 Pull Scanner Image
-docker pull bywalkss/darkangel:v0.0.4
+docker pull bywalkss/darkangel:v0.0.5
 
 Deployment Scanner
-docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.4
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.5
 
 Enter the scanner docker
 docker exec -it docker_id /bin/bash
@@ -319,6 +319,7 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 
 - Update vulnerability template generation module and update vulnerability template format
 - Add an automatic screenshot of the vulnerability URL and save it to the vulscan/results/image directory
+- Add vulnerability URL automatic screenshot dependency, and update scanner image bywalks/darkangel to v0.0.5
 
 #### [v0.0.6] - 2022-02-15
 

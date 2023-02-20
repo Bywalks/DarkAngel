@@ -102,10 +102,10 @@ docker start elasticsearch
 
 ```
 拉取扫描器镜像
-docker pull bywalkss/darkangel:v0.0.4
+docker pull bywalkss/darkangel:v0.0.5
 
 部署扫描器
-docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.4
+docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.5
 
 进入扫描器docker
 docker exec -it docker_id /bin/bash
@@ -317,6 +317,7 @@ Bug反馈
 
 - 更新漏洞模板生成模块，并更新漏洞模板格式
 - 添加漏洞URL自动截屏，并保存到vulscan/results/image目录
+- 添加漏洞URL自动截屏依赖，扫描器镜像bywalkss/darkangel更新到v0.0.5
 
 #### [v0.0.6] - 2022-02-15
 

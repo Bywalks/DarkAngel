@@ -6,6 +6,7 @@
 
 - 更新漏洞模板生成模块，并更新漏洞模板格式
 - 添加漏洞URL自动截屏，并保存到vulscan/results/image目录
+- 添加漏洞URL自动截屏依赖，扫描器镜像bywalkss/darkangel更新到v0.0.5
 
 
 

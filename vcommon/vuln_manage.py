@@ -326,6 +326,6 @@ if __name__ == "__main__":
         print(f.read().replace("[website]","https://www.baidu.com"))
     
     vulnma = VulnManager()
-    vulnma.start_screenshot_driver(vuln_url="http://www.baidu.com", vuln_image_name="baidu.png")
+    vulnma.screenshot_driver(vuln_url="http://www.baidu.com", vuln_image_name="baidu.png")
     '''
     pass
