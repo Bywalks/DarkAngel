@@ -453,7 +453,7 @@ class NucleiScan(object):
 
     def write_url_list(self, program, asset_list):
         #nuclei_output_json = "/root/vuln_scan/vulscan/results/nuclei/1.json"
-        urls_output_txt = f"{self.urls_resultDir}/{program}_temp_urls_output.txt"
+        urls_output_txt = f"{self.urls_resultDir}/{program}_urls_output.txt"
         if os.path.exists(urls_output_txt):
             if "temp" in urls_output_txt:
                 pass
@@ -515,6 +515,7 @@ class NucleiScan(object):
                     vuln_info['scan_detail'] = each
                     self.vuln_manager.add_nuclei_vuln_score(vuln_info)
                     self.vuln_manager.generate_report(vuln_info)
+                    self.vuln_manager.start_screenshot_driver(vuln_info)
                     logger.log('INFOR',vuln_info)
                     self.es_helper.insert_one_doc(self.vuln_index, vuln_info)
                 logger.log('INFOR',f'[+]nuclei[{url}]扫描完毕')

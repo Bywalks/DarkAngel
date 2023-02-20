@@ -23,6 +23,7 @@ Currently supported features：
 - Sub domain name scanning;
 - Website fingerprint identification;
 - Vulnerability scanning;
+- Automatic screenshot of vulnerability URL;
 - Automatic generation of vulnerability reports;
 - Enterprise WeChat notification scanning results;
 - The front end displays the scanning results;
@@ -312,13 +313,18 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
+#### [v0.0.7] - 2022-02-20
+
+**更新**  
+
+- Update vulnerability template generation module and update vulnerability template format
+- Add an automatic screenshot of the vulnerability URL and save it to the vulscan/results/image directory
+
 #### [v0.0.6] - 2022-02-15
 
 **Update** 
 
 - Fix the bug that xray does not run
-
-
 
 #### [v0.0.5] - 2022-02-09
 
@@ -327,8 +333,6 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Fix the bug that does not work in the docker after the host changes the nuclei configuration, and update the scanner image bywalks/darkangle to v0.04
 - Update nuclei_config.yaml、nuclei_new_temp_config.yaml file
 
-
-
 #### [v0.0.4] - 2022-02-07
 
 **Update** 
@@ -336,8 +340,6 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Update xray to version 1.9.4 and update the configuration file
 - Update nuclei to version 2.8.8 and update the configuration file
 - Add missing httpx, naabu, crawlergo, whatweb
-
-
 
 #### [v0.0.3] - 2022-01-17
 
@@ -363,6 +365,7 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Sub domain name scanning
 - Website fingerprint identification
 - Vulnerability scanning
+- Automatic screenshot of vulnerability URL
 - Automatic generation of vulnerability reports
 - Enterprise WeChat notification scanning results
 - Front end displays scanning results

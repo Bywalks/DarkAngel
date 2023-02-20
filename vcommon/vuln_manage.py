@@ -18,6 +18,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from vconfig.config import *
 from vcommon.ESHelper import ESHelper
 from vconfig.log import logger
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 # 防止SSL报错
 requests.packages.urllib3.disable_warnings()
@@ -274,6 +276,46 @@ class VulnManager(object):
             if os.path.exists(temp_file_name):
                 self.generate_report_from_temp(vuln_info)
 
+    def start_screenshot_driver(self, vuln_info):
+        vuln_name = ""
+        vuln_url = ""
+        host_name = self.es_helper.remove_http_or_https(vuln_info['website']).split(":")[0].split("/")[0]
+        if vuln_info['scan_name'] == "nuclei_scan":
+            vuln_name = vuln_info['scan_detail']['template-id']
+            vuln_url = vuln_info['scan_detail']['matched-at']
+        elif vuln_info['scan_name'] == "xray_scan":
+            vuln_name = vuln_info['vuln_name'].replace("/", "_")
+            vuln_url = vuln_info['scan_detail']['addr']
+        vuln_image_name = f"{vuln_name}_{host_name}.png"
+        logger.log('INFOR', "Start screenshot.")
+        logger.log('INFOR', f"screenshot: {vuln_url}")
+        self.screenshot_driver(vuln_url, vuln_image_name)
+
+    def screenshot_driver(self, vuln_url, vuln_image_name):
+        options = webdriver.ChromeOptions()
+
+        # 浏览器不提供可视化页面. linux下如果系统不支持可视化不加这条会启动失败
+        options.add_argument('--headless')
+        # 谷歌文档提到需要加上这个属性来规避bug
+        options.add_argument('--disable-gpu')
+        # 取消沙盒模式
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        # 指定浏览器分辨率
+        options.add_argument('window-size=1920x1080')
+        self.driver = webdriver.Chrome(options=options)
+
+        # 网页地址
+        self.driver.get(vuln_url)
+        # 等待2秒再截图，如果网页渲染的慢截图的内容会有问题
+        time.sleep(2)
+
+        # 截图
+        self.driver.get_screenshot_as_file(f'{PARENT_DIR}/vulscan/results/image/{vuln_image_name}')
+
+        # 退出
+        self.driver.close()
+
 if __name__ == "__main__":
     #print(CUR_DIR)
     #print(PARENT_DIR)
@@ -282,5 +324,8 @@ if __name__ == "__main__":
     filename = f"{vulnma.report_tempDir}/springboot-env.md"
     with open(filename,'r') as f:
         print(f.read().replace("[website]","https://www.baidu.com"))
+    
+    vulnma = VulnManager()
+    vulnma.start_screenshot_driver(vuln_url="http://www.baidu.com", vuln_image_name="baidu.png")
     '''
     pass

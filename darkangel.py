@@ -63,7 +63,7 @@ darkangel_banner = f'''{green}
  / /_/ / /_/ / /  / ,< / ___ |/ / / / /_/ /  __/ /  
 /_____/\__,_/_/  /_/|_/_/  |_/_/ /_/\__, /\___/_/   
                                    /____/                  
-{green}                           By Bywalks | V 0.0.6    
+{green}                           By Bywalks | V 0.0.7    
 
 DarkAngel is a white hat scanner. Every white hat makes the Internet more secure.        
 '''
@@ -185,6 +185,7 @@ class DarkAngel(object):
                 new_nuclei_url_list = self.nuclei_scan.read_url_list(pdomain=pdomain)
                 if new_nuclei_url_list:
                     new_nuclei_url_len = len(new_nuclei_url_list)
+
                     j = 1
                     for url_info in new_nuclei_url_list:
                         logger.log('INFO', "[Nuclei-Subdomain] 开始扫描第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
@@ -194,6 +195,7 @@ class DarkAngel(object):
                         futures.append(f1)
                     # 等待futures里面所有的子线程执行结束， 再执行主线程(join())
                     wait(futures)
+
                     j = 1
                     for url_info1 in new_nuclei_url_list:
                         logger.log('INFO', "[Nuclei-Subdomain] 开始写入第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
@@ -347,7 +349,7 @@ class DarkAngel(object):
             self.vuln_mng.send_message(message=message)
             self.scan_module(pdomain_list=pdomain_list)
             # 添加bounty和no_bounty域名
-            self.save_new_url_list_by_time(begin_time=gte)
+            # self.save_new_url_list_by_time(begin_time=gte)
             message = f"新pdomain扫描完成。"
             self.vuln_mng.send_message(message=message)
         else:

@@ -200,6 +200,7 @@ def xray_webhook():
             vuln_manager.add_vuln_score(new_doc)
             logger.log('INFO',new_doc)
             vuln_manager.generate_report(new_doc)
+            vuln_manager.start_screenshot_driver(new_doc)
             vuln_manager.es_helper.insert_one_doc(index="vuln-assets-1",asset_info=new_doc)
             logger.log('INFO',"find vuln and insert success!")
         else:
