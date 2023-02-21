@@ -21,6 +21,7 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 - bugcrowd资产监听；
 - 自定义资产添加；
 - 子域名扫描；
+- 网站爬虫；
 - 网站指纹识别；
 - 漏洞扫描；
 - 漏洞URL自动截屏；
@@ -362,6 +363,7 @@ Bug反馈
 - bugcrowd资产监听
 - 自定义资产添加
 - 子域名扫描
+- 网站爬虫
 - 网站指纹识别
 - 漏洞扫描
 - 漏洞URL自动截屏

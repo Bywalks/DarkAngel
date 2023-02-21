@@ -21,6 +21,7 @@ Currently supported features：
 - Bugcrowd asset monitoring;
 - Add user-defined assets;
 - Sub domain name scanning;
+- Website crawler;
 - Website fingerprint identification;
 - Vulnerability scanning;
 - Automatic screenshot of vulnerability URL;
@@ -364,6 +365,7 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Bugcrowd asset monitoring
 - Custom Asset Add
 - Sub domain name scanning
+- Website crawler
 - Website fingerprint identification
 - Vulnerability scanning
 - Automatic screenshot of vulnerability URL
