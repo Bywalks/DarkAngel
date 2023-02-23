@@ -5,128 +5,131 @@
 <a href="https://twitter.com/intent/tweet/?text=Fully%20automatic%20white%20hat%20vulnerability%20reward%20scanner,%20from%20hacker%20and%20bugcrowd%20asset%20monitoring%20to%20vulnerability%20report%20generation%20and%20enterprise%20WeChat%20notification.%20https://github.com/Bywalks/DarkAngel%20%23scanner%20%23cybersecurity%20%23bugbounty%20%23infosec%20%23pentest"><img alt="tweet" src="https://img.shields.io/twitter/url?url=https://github.com/Bywalks/DarkAngel" /></a>
 <a href="https://twitter.com/Bywalkss"><img alt="Twitter" src="https://img.shields.io/twitter/follow/Bywalkss?label=Followers&style=social" /></a>
 <a href="https://github.com/Bywalks"><img alt="Github" src="https://img.shields.io/github/followers/Bywalks?style=social" /></a><br></br>
-中文 | <a href="README_EN.md">English</a>
+English | <a href="README_CN.md">中文</a>
 </p>
+
 
 
 ---
 
-DarkAngel 是一款全自动白帽漏洞扫描器，从hackerone、bugcrowd资产监听到漏洞报告生成、漏洞URL截屏、企业微信通知。
+DarkAngel is a fully automatic white hat vulnerability scanner, which can monitor hacker and bugcrowd assets, generate vulnerability reports, screen capture of vulnerability URL, and send enterprise WeChat notifications.
 
-DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywalks/DarkAngel)
+DarkAngel download address：[github.com/Bywalks/DarkAngel](https://github.com/Bywalks/DarkAngel)
 
-当前已支持的功能：
+Currently supported features：
 
-- hackerone资产监听；
-- bugcrowd资产监听；
-- 自定义资产添加；
-- 子域名扫描；
-- 网站爬虫；
-- 网站指纹识别；
-- 漏洞扫描；
-- 漏洞URL自动截屏；
-- 漏洞报告自动生成；
-- 企业微信通知扫描结果；
-- 前端显示扫描结果；
+- Hackerone asset monitoring;
+- Bugcrowd asset monitoring;
+- Add user-defined assets;
+- Sub domain name scanning;
+- Website crawler;
+- Website fingerprint identification;
+- Vulnerability scanning;
+- Automatic screenshot of vulnerability URL;
+- Automatic generation of vulnerability reports;
+- Enterprise WeChat notification scanning results;
+- The front end displays the scanning results;
 
-## 自动生成漏洞报告
+## Automatically generate vulnerability reports
 
-自动生成漏洞报告 - MarkDown格式 - 存放地址/root/DarkAngel/vulscan/results/report
+Welcome to submit some vulnerability templates to this project
+                           
+Automatically generate vulnerability report - MarkDown format - storage address/root/DarkAngel/vulscan/results/report
 
 ![](http://www.bywalks.com/image/report.jpg)
 
-支持自添加漏洞报告模板，目前已添加漏洞报告模板如下，漏洞名配置为nuclei模板文件名即可
+Support for self adding vulnerability report templates. Currently, vulnerability report templates have been added as follows. The vulnerability name can be configured as the file name of the nuclei template
 
 ![](http://www.bywalks.com/image/report_template1.jpg)
 
-自定义漏洞报告模板格式
+Custom vulnerability report template format
 
 ![](http://www.bywalks.com/image/report_template2.jpg)
 
-## 企业微信通知
+## Enterprise WeChat notification
 
-可先查看如何获取配置：[企业微信开发接口文档](https://developer.work.weixin.qq.com/document/path/90487)
+You can view how to obtain the configuration first：[Enterprise WeChat development interface document](https://developer.work.weixin.qq.com/document/path/90487)
 
-获取参数后，在/root/DarkAngel/vconfig/config.ini中配置参数，即可启用企业微信通知
+After obtaining the parameters, configure the parameters in /root/markup/vconfig/config.ini to enable enterprise WeChat notifications
 
-微信通知 - 漏洞结果
+WeChat Notification - Vulnerability Results
 
  ![](http://www.bywalks.com/image/result_vx2.png)
 
-微信通知 - 扫描进程
+WeChat notification - scanning process
 
  ![](http://www.bywalks.com/image/result_vx1.png)
 
-## 安装
+##Installation
 
-整体项目架构ES+Kibana+扫描器，所以安装需要三个部分
+The overall project architecture is ES+Kibana+scanner, so the installation requires three parts
 
-ES镜像：
+ES image:
 
 ```
-拉取ES镜像
+Pull ES image
 docker pull bywalkss/darkangel:es7.9.3
 
-部署ES镜像
-docker run -e ES_JAVA_OPTS="-Xms1024m -Xms1024m" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
+Deploy ES image
+docker run -e ES_ JAVA_ OPTS="-Xms1024m -Xms1024m" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
 
-查看日志
+view log
 docker logs -f elasticsearch
 
-出现问题，执行命令
-sysctl -w vm.max_map_count=262144
+If there is a problem, execute the command
+sysctl -w vm.max_ map_ count=262144
 
-重启docker
+Restart Docker
 docker restart elasticsearch
 ```
 
-Kibana镜像：
+Kibana image:
 
 ```
-拉取Kibana镜像
+Pull Kibana image
 docker pull bywalkss/darkangel:kibana7.9.3
 
-部署Kibana镜像（修改一下es-ip）
-docker run --name kibana -e ELASTICSEARCH_URL=http://es-ip:9200 -p 5601:5601 -d docker.io/bywalkss/darkangel:kibana7.9.3
+Deploy Kibana image (modify the es ip)
+docker run --name kibana -e ELASTICSEARCH_ URL= http://es-ip:9200 -p 5601:5601 -d docker.io/bywalkss/darkangel:kibana7.9.3
 
-查看日志
+view log
 docker logs -f elasticsearch
 
-出现问题，执行命令
-sysctl -w vm.max_map_count=262144
+If there is a problem, execute the command
+sysctl -w vm.max_ map_ count=262144
 
-重启docker
+Restart Docker
 docker start elasticsearch
 ```
 
-扫描器镜像：
+Scanner image:
 
 ```
-拉取扫描器镜像
+Pull Scanner Image
 docker pull bywalkss/darkangel:v0.0.5
 
-部署扫描器
+Deployment Scanner
 docker run -it -d -v /root/DarkAngel:/root/DarkAngel --name darkangel bywalkss/darkangel:v0.0.5
 
-进入扫描器docker
+Enter the scanner docker
 docker exec -it docker_id /bin/bash
 
-进入root目录
+Enter the root directory
 cd root
 
-下载源代码
+Download source code
 git clone https://github.com/Bywalks/DarkAngel.git
 
-添加执行权限
+Add execution permissions
 chmod 777 /root/DarkAngel/vulscan/tools/*
 chmod 777 /root/DarkAngel/vulscan/tools/whatweb/*
 
-进行DarkAngel目录后即可使用
+You can use it after into the DarkAngel directory
 ```
 
-docker容器内挂载目录无权限：解决方法1、运行容器时：--privileged=true；解决方法2、宿主机运行命令：setenforce 0
+The directory mounted in the docker container does not have permission: Solution 1. When running the container: --privileged=true; Solution 2. The host runs the command: setenforce 0
 
-## 用法
+## usage
 
 ```
 usage: darkangel.py [-h] [--add-new-domain]
@@ -168,7 +171,7 @@ optional arguments:
 
 ```$ python3 darkangel.py --add-new-domain```
 
-- 监听hackerone和bugcrowd新域名
+- Listen to the new domain names of hackerone and bugcrowd
 
 ![](http://www.bywalks.com/image/add-new-domain.jpg)
 
@@ -176,7 +179,7 @@ optional arguments:
 
 ```$ python3 darkangel.py --scan-domain-by-time begin-time end-time```
 
-- 以时间间隔为条件，对es库中pdomain进行漏洞扫描，该模块开发目的为对库中pdomain进行分批扫描，缓解一次卡断整个程序出错的问题
+- With the time interval as the condition, the pdomain in the es library is scanned for vulnerabilities. The development purpose of this module is to scan the pdomain in the library in batches to alleviate the problem of blocking the whole program at one time
 
 ![](http://www.bywalks.com/image/scan-domain-by-time.jpg)
 
@@ -184,7 +187,7 @@ optional arguments:
 
 ```$ python3 darkangel.py --scan-new-domain```
 
-- 监听hackerone和bugcrowd新域名并进行扫描（第一次使用该程序不建议使用该参数，会把hackerone和bugcrowd域名全部添加进去并扫描，资产过多的情况下做好准备，扫描时间很长）
+- Monitor the hacker and bugcrowd domain names and scan them (when using them for the first time, all the hacker and bugcrowd domain names will be added. Prepare when there are too many assets, and the scan takes a long time)
 
 ![](http://www.bywalks.com/image/scan-new-domain.jpg)
 
@@ -192,25 +195,25 @@ optional arguments:
 
 ```$ python3 darkangel.py --add-domain-and-scan program-file-name1 program-file-name2 --offer-bounty yes/no```
 
-- 自定义添加扫描域名，并对这些域名进行漏洞扫描
-- 文件名为厂商名称，文件内存放需扫描域名
-- 需提供--offer-bounty参数，设置域名是否提供赏金
+-Customized addition of scanning domain names and vulnerability scanning of these domain names
+-The file name is the name of the manufacturer, and the file memory needs to scan the domain name
+-The --offer-bounty parameter is required to set whether the domain name provides reward
 
- ![](http://www.bywalks.com/image/add_domain_and_scan1.jpg)
+![](http://www.bywalks.com/image/add_domain_and_scan1.jpg)
 
 ![](http://www.bywalks.com/image/add_domain_and_scan2.jpg)
 
-扫描结束后，会把子域名结果存在在/root/DarkAngel/vulscan/results/urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内
+After scanning, the subdomain name results will be stored in the /root/DarkAngel/vulscan/results/urls directory，They are stored in the，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt In document
 
 ### --nuclei-file-scan
 
 ```$ python3 darkangel.py --nuclei-file-scan```
 
-- 用nuclei扫描20个url文件
+- Scan 20 url files with nuclei
 
 ![](http://www.bywalks.com/image/nuclei-file-scan2.jpg)
 
-url列表存放位置
+URL list storage location
 
 ![](http://www.bywalks.com/image/nuclei-file-scan1.jpg)
 
@@ -218,27 +221,27 @@ url列表存放位置
 
 ```$ python3 darkangel.py --nuclei-file-polling-scan```
 
-- 轮询用nuclei扫描20个url文件，可把该进程放在后台，轮询扫描，监听是否url列表是否存在新漏洞出现
+- Polling uses Nuclei to scan 20 url files. You can put the process in the background, poll and scan, and listen for new vulnerabilities in the url list
 
 ### --nuclei-file-scan-by-new-temp
 
 ```$ python3 darkangel.py --nuclei-file-scan-by-new-temp nuclei-template-version```
 
-- 监听nuclei-template更新，当更新时，对url列表进行扫描
+- Listen for updates to the nucleus template. When updating, scan the url list
 
-当前nuclei-template版本为9.3.1
+The current nuclear template version is 9.3.1
 
 ![](http://www.bywalks.com/image/nuclei_file_scan_by_new_temp1.jpg)
 
-执行命令，监听9.3.2版本更新
+Execute the command to monitor the 9.3.2 version update
 
 ![](http://www.bywalks.com/image/nuclei_file_scan_by_new_temp2.jpg)
 
-企业微信通知
+Enterprise WeChat notification
 
  ![](http://www.bywalks.com/image/nuclei_file_scan_by_new_temp3.png)
 
-url列表存放位置
+URL list storage location
 
 ![](http://www.bywalks.com/image/nuclei-file-scan1.jpg)
 
@@ -246,17 +249,17 @@ url列表存放位置
 
 ```$ python3 darkangel.py --nuclei-file-scan-by-new-add-temp nuclei-template-id```
 
-- 监听nuclei单template更新，当更新时，用该template对url列表进行扫描，这里是打了个时间差，某些时候先提交tempalte，验证后才会加入nuclei模板，在还未加入时，我们已经监听并进行扫描，扫描后id会自动增加，监听并进行扫描
+- Monitor the update of the single template of nuclei. When updating, use this template to scan the url list. There is a time difference here. Sometimes, submit the tempalte first, and then add the nuclei template after verification. When we have not yet joined, we have already listened and scanned. After scanning, the ID will automatically increase, and listen and scan
 
-查看nuclei单template的id，这里为6296
+Check the ID of the single template of Nuclei, which is 6296 here
 
 ![](http://www.bywalks.com/image/nuclei_file_scan_by_new_add_temp1.jpg)
 
-执行命令，对该template进行扫描
+Execute the command to scan the template
 
 ![](http://www.bywalks.com/image/nuclei_file_scan_by_new_add_temp2.jpg)
 
-url列表存放位置
+URL list storage location
 
 ![](http://www.bywalks.com/image/nuclei-file-scan1.jpg)
 
@@ -264,121 +267,117 @@ url列表存放位置
 
 ```$ python3 darkangel.py --nuclei-file-scan-by-temp-name nuclei-template-name```
 
-- 用单template对url列表进行扫描
+- Scan the url list with a single template
 
 ![](http://www.bywalks.com/image/nuclei_file_scan_by_temp.jpg)
 
-## 结果显示
+## Result display
 
-前端 - 扫描厂商
+Front end scanning manufacturer
 
-![](http://www.bywalks.com/image/result_kibana_program.jpg)
+![]( http://www.bywalks.com/image/result_kibana_program.jpg )
 
-前端 - 扫描域名
+Front end - scan domain name
 
-![](http://www.bywalks.com/image/result_kibana_domain.jpg)
+![]( http://www.bywalks.com/image/result_kibana_domain.jpg )
 
-前端 - 扫描结果
+Front End - Scan Results
 
-![](http://www.bywalks.com/image/result_kibana_vuln.jpg)
+![]( http://www.bywalks.com/image/result_kibana_vuln.jpg )
 
-微信通知 - 扫描进程
+WeChat notification - scanning process
 
- ![](http://www.bywalks.com/image/result_vx1.png)
+![]( http://www.bywalks.com/image/result_vx1.png )
 
-微信通知 - 漏洞结果
+WeChat Notification - Vulnerability Results
 
- ![](http://www.bywalks.com/image/result_vx2.png)
+![](http://www.bywalks.com/image/result_vx2.png)
+                                                  
+## Feedback and contribution code
 
-## 反馈及贡献代码
+First of all, thank you for taking the time to make DarkAngel better 👍
 
-首先感谢您花费时间来使DarkAngel变得更好用👍
-
-Bug反馈、建议以及漏洞模板提交，您的Github ID会在以下致谢列表披露：
+Bug feedback, suggestions and vulnerability template submission, your Github ID will be disclosed in the following thanks list:
 
 https://github.com/Bywalks/DarkAngel/blob/main/THANKS.md
 
-Bug反馈
+Bug feedback
 
-请提交在[GitHub Issues](https://github.com/Bywalks/DarkAngel/issues)中，提供当前的DarkAngel报错信息或截图、详细描述您的复现步骤。
+Please submit the current DarkAngel error message or screenshot in [GitHub Issues](https://github.com/Bywalks/DarkAngel/issues), and describe your replication steps in detail.
 
-功能建议
+Function suggestions
 
-在[GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions)中您可以畅所欲言，同开发人员讨论您想要的功能。
+In [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions), you can speak freely and discuss the functions you want with the developers.
 
-漏洞模板提交
+Vulnerability template submission
 
-欢迎各位在[GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions)中提交漏洞模板，开源项目需要每个人的贡献。
-
-## 最近更新
+Welcome to submit vulnerability templates in [GitHub Discussions](https://github.com/Bywalks/DarkAngel/discussions). Open source projects require everyone's contribution.
+                                                  
+## Recent Updates
 
 #### [v0.0.7] - 2022-02-20
 
 **更新**  
 
-- 更新漏洞模板生成模块，并更新漏洞模板格式
-- 添加漏洞URL自动截屏，并保存到vulscan/results/image目录
-- 添加漏洞URL自动截屏依赖，扫描器镜像bywalkss/darkangel更新到v0.0.5
+- Update vulnerability template generation module and update vulnerability template format
+- Add an automatic screenshot of the vulnerability URL and save it to the vulscan/results/image directory
+- Add vulnerability URL automatic screenshot dependency, and update scanner image bywalks/darkangel to v0.0.5
 
 #### [v0.0.6] - 2022-02-15
 
-**更新**  
+**Update** 
 
-- 修复xray不运行的bug
+- Fix the bug that xray does not run
 
 #### [v0.0.5] - 2022-02-09
 
-**更新**  
+**Update** 
 
-- 修复宿主机更改nuclei配置后docker内使用不生效的bug，扫描器镜像bywalkss/darkangel更新到v0.0.4
-- 更新nuclei_config.yaml、nuclei_new_temp_config.yaml文件
+- Fix the bug that does not work in the docker after the host changes the nuclei configuration, and update the scanner image bywalks/darkangle to v0.04
+- Update nuclei_config.yaml、nuclei_new_temp_config.yaml file
 
 #### [v0.0.4] - 2022-02-07
 
-**更新**  
+**Update** 
 
-- 更新xray到1.9.4版本，并更新配置文件
-- 更新nuclei到2.8.8版本，并更新配置文件
-- 添加遗漏的httpx、naabu、crawlergo、whatweb
+- Update xray to version 1.9.4 and update the configuration file
+- Update nuclei to version 2.8.8 and update the configuration file
+- Add missing httpx, naabu, crawlergo, whatweb
 
 #### [v0.0.3] - 2022-01-17
 
-**更新**  
+**Update**
 
-- 增加只添加hackerone和bugcrowd资产模块 - --add-new-domain
-- 增加以时间间隔为条件，对es库中pdomain进行漏洞扫描 - --scan-domain-by-time
+- Add only the hacker and bugrow asset modules -- add new domain
+- Add a vulnerability scan for pdomain in es database based on time interval -- scan-domain-by-time
 
 #### [v0.0.2] - 2022-12-27
 
-**更新**  
+**update**  
 
-- ES-IP填写错误后进行错误提示
-- 改正tools目录下nuclei、xray等文件的执行权限为777
+- Error prompt after filling in ES-IP error
+- Correct that the execution permissions of files such as nucleus and xray in the tools directory are 777
 
 #### [v0.0.1] - 2022-12-12
 
-**功能**  
+**function**  
 
-- hackerone资产监听
-- bugcrowd资产监听
-- 自定义资产添加
-- 子域名扫描
-- 网站爬虫
-- 网站指纹识别
-- 漏洞扫描
-- 漏洞URL自动截屏
-- 漏洞报告自动生成
-- 企业微信通知扫描结果
-- 前端显示扫描结果
+- Hackerone asset monitoring
+- Bugcrowd asset monitoring
+- Custom Asset Add
+- Sub domain name scanning
+- Website crawler
+- Website fingerprint identification
+- Vulnerability scanning
+- Automatic screenshot of vulnerability URL
+- Automatic generation of vulnerability reports
+- Enterprise WeChat notification scanning results
+- Front end displays scanning results
 
-## 公众号
-
-![](http://www.bywalks.com/image/official_account.jpg)
-
-## 更多
+## more
 
 <div align=center><a href="https://github.com/bywalks"><img src="https://api.star-history.com/svg?repos=Bywalks/DarkAngel&type=Timeline"></a></div>
 
-## 注意事项
+## matters needing attention
 
-* 本工具仅用于合法合规用途，严禁用于违法违规用途。
+* This tool is only used for legal and compliance purposes, and it is strictly prohibited to use it for illegal purposes.
