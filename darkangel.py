@@ -238,6 +238,7 @@ class DarkAngel(object):
                     self.es_helper.remove_duplicate_data_in_spider_pdomain(pdomain=pdomain)
                 i = i + 1
 
+            '''
             # 7：对新增的url做fuzz扫描
             # ./interactsh-client-new -server https://xx -json -token xx -o /root/vuln_scan/vulscan/results/fuzz/fuzz.json
             time.sleep(20)
@@ -254,6 +255,7 @@ class DarkAngel(object):
                         'program'] + "-" + pdomain_info['_source']['domain'])
                     self.fuzz_scan.write_fuzz_list(domain=pdomain)
                 i = i + 1
+            '''
 
             # 8：对新增的url做xray扫描
             self.xray_scan.delxray()
