@@ -12,7 +12,7 @@ English | <a href="README_CN.md">中文</a>
 
 ---
 
-DarkAngel is a fully automatic white hat vulnerability scanner, which can monitor hacker and bugcrowd assets, generate vulnerability reports, screen capture of vulnerability URL, and send enterprise WeChat notifications.
+DarkAngel is a fully automatic white hat vulnerability scanner, which can monitor hacker and bugcrowd assets, generate vulnerability reports, screen capture of vulnerability URL, and send message notifications.
 
 DarkAngel download address：[github.com/Bywalks/DarkAngel](https://github.com/Bywalks/DarkAngel)
 
