@@ -63,7 +63,7 @@ darkangel_banner = f'''{green}
  / /_/ / /_/ / /  / ,< / ___ |/ / / / /_/ /  __/ /  
 /_____/\__,_/_/  /_/|_/_/  |_/_/ /_/\__, /\___/_/   
                                    /____/                  
-{green}                           By Bywalks | V 0.0.7    
+{green}                           By Bywalks | V 0.0.8    
 
 DarkAngel is a white hat scanner. Every white hat makes the Internet more secure.        
 '''
@@ -330,7 +330,7 @@ class DarkAngel(object):
             else:
                 message = f"未发现新pdomain,等待半小时后进行扫描。"
                 self.vuln_mng.send_message(message=message)
-            time.sleep(1800)
+            time.sleep(10800)
 
     def scan_domain_by_program(self, program):
         # 1：漏洞扫描模块-获取新pdomain

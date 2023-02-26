@@ -36,8 +36,11 @@ if config.has_section("bc"):
 if config.has_section("fuzz"):
     KEY = config.get('fuzz', "key")
 
-if config.has_section("qyweixin"):
-    CORPID = config.get('qyweixin', "corpid")
-    CORPSECRET = config.get('qyweixin', "corpsecret")
-    TOUSER = config.get('qyweixin', "touser")
-    TOPARTY = config.get('qyweixin', "toparty")
+if config.has_section("message"):
+    PLATFORM  = config.get('message', "platform")
+    CORPID = config.get('message', "corpid")
+    CORPSECRET = config.get('message', "corpsecret")
+    TOUSER = config.get('message', "touser")
+    TOPARTY = config.get('message', "toparty")
+    TGTOKEN = config.get('message', "tgtoken")
+    CHATID = config.get('message', "chatid")

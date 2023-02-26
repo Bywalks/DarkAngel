@@ -539,6 +539,7 @@ class NucleiScan(object):
                     vuln_info['scan_detail'] = each
                     self.vuln_manager.add_nuclei_vuln_score(vuln_info)
                     self.vuln_manager.generate_report(vuln_info)
+                    self.vuln_manager.start_screenshot_driver(vuln_info)
                     logger.log('INFOR',vuln_info)
                     self.es_helper.insert_one_doc(self.vuln_index, vuln_info)
                 logger.log('INFOR',f'[+]nuclei[{program}]扫描完毕')

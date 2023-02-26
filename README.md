@@ -46,7 +46,23 @@ Custom vulnerability report template format
 
 ![](http://www.bywalks.com/image/report_template2.jpg)
 
-## Enterprise WeChat notification
+## Scan message notification
+
+### Telegram notification
+
+You can view how to obtain the configuration first：[TG Configuration Tutorial](https://core.telegram.org/bots/api)
+
+After obtaining the parameters, configure the parameters in /root/markup/vconfig/config.ini to enable enterprise TG notifications
+
+TG Notification - Vulnerability Results
+
+![](http://www.bywalks.com/image/result_tg2.jpg)
+
+TG notification - scanning process
+
+![](http://www.bywalks.com/image/result_tg1.jpg)
+
+### Enterprise WeChat notification
 
 You can view how to obtain the configuration first：[Enterprise WeChat development interface document](https://developer.work.weixin.qq.com/document/path/90487)
 
@@ -129,7 +145,7 @@ You can use it after into the DarkAngel directory
 
 The directory mounted in the docker container does not have permission: Solution 1. When running the container: --privileged=true; Solution 2. The host runs the command: setenforce 0
 
-## usage
+## Usage
 
 ```
 usage: darkangel.py [-h] [--add-new-domain]
@@ -315,7 +331,13 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
-#### [v0.0.7] - 2022-02-20
+#### [v0.0.8] - 2023-02-26
+
+**更新**  
+
+- Add telegram real-time notification scan results
+
+#### [v0.0.7] - 2023-02-20
 
 **更新**  
 
@@ -323,20 +345,20 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Add an automatic screenshot of the vulnerability URL and save it to the vulscan/results/image directory
 - Add vulnerability URL automatic screenshot dependency, and update scanner image bywalks/darkangel to v0.0.5
 
-#### [v0.0.6] - 2022-02-15
+#### [v0.0.6] - 2023-02-15
 
 **Update** 
 
 - Fix the bug that xray does not run
 
-#### [v0.0.5] - 2022-02-09
+#### [v0.0.5] - 2023-02-09
 
 **Update** 
 
 - Fix the bug that does not work in the docker after the host changes the nuclei configuration, and update the scanner image bywalks/darkangle to v0.04
 - Update nuclei_config.yaml、nuclei_new_temp_config.yaml file
 
-#### [v0.0.4] - 2022-02-07
+#### [v0.0.4] - 2023-02-07
 
 **Update** 
 
@@ -344,7 +366,7 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Update nuclei to version 2.8.8 and update the configuration file
 - Add missing httpx, naabu, crawlergo, whatweb
 
-#### [v0.0.3] - 2022-01-17
+#### [v0.0.3] - 2023-01-17
 
 **Update**
 
@@ -374,10 +396,10 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
 - Enterprise WeChat notification scanning results
 - Front end displays scanning results
 
-## more
+## More
 
 <div align=center><a href="https://github.com/bywalks"><img src="https://api.star-history.com/svg?repos=Bywalks/DarkAngel&type=Timeline"></a></div>
 
-## matters needing attention
+## Matters needing attention
 
 * This tool is only used for legal and compliance purposes, and it is strictly prohibited to use it for illegal purposes.

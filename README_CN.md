@@ -44,7 +44,23 @@ DarkAngel 下载地址：[github.com/Bywalks/DarkAngel](https://github.com/Bywal
 
 ![](http://www.bywalks.com/image/report_template2.jpg)
 
-## 企业微信通知
+## 扫描消息通知
+
+### Telegram
+
+可先查看如何获取配置：[TG配置教程](https://zhuanlan.zhihu.com/p/146062288)
+
+获取参数后，在/root/DarkAngel/vconfig/config.ini中配置参数，即可启用TG通知
+
+TG通知 - 漏洞结果
+
+![](http://www.bywalks.com/image/result_tg2.jpg)
+
+TG通知 - 扫描进程
+
+![](http://www.bywalks.com/image/result_tg1.jpg)
+
+### 企业微信
 
 可先查看如何获取配置：[企业微信开发接口文档](https://developer.work.weixin.qq.com/document/path/90487)
 
@@ -313,7 +329,13 @@ Bug反馈
 
 ## 最近更新
 
-#### [v0.0.7] - 2022-02-20
+#### [v0.0.8] - 2023-02-26
+
+**更新**  
+
+- 添加telegram实时通知扫描结果
+
+#### [v0.0.7] - 2023-02-20
 
 **更新**  
 
@@ -321,20 +343,20 @@ Bug反馈
 - 添加漏洞URL自动截屏，并保存到vulscan/results/image目录
 - 添加漏洞URL自动截屏依赖，扫描器镜像bywalkss/darkangel更新到v0.0.5
 
-#### [v0.0.6] - 2022-02-15
+#### [v0.0.6] - 2023-02-15
 
 **更新**  
 
 - 修复xray不运行的bug
 
-#### [v0.0.5] - 2022-02-09
+#### [v0.0.5] - 2023-02-09
 
 **更新**  
 
 - 修复宿主机更改nuclei配置后docker内使用不生效的bug，扫描器镜像bywalkss/darkangel更新到v0.0.4
 - 更新nuclei_config.yaml、nuclei_new_temp_config.yaml文件
 
-#### [v0.0.4] - 2022-02-07
+#### [v0.0.4] - 2023-02-07
 
 **更新**  
 
@@ -342,7 +364,7 @@ Bug反馈
 - 更新nuclei到2.8.8版本，并更新配置文件
 - 添加遗漏的httpx、naabu、crawlergo、whatweb
 
-#### [v0.0.3] - 2022-01-17
+#### [v0.0.3] - 2023-01-17
 
 **更新**  
 

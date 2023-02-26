@@ -106,7 +106,7 @@ class VulnManager(object):
         if vuln_score >= 3:
             self.send_vuln_message(scan_item)
 
-    def get_token(self):
+    def get_vx_token(self):
         url = f"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={CORPID}&corpsecret={CORPSECRET}"
         r = requests.get(url=url, verify=False, timeout=10)
         text = json.loads(r.text)
@@ -119,43 +119,59 @@ class VulnManager(object):
         website = scan_item['website']
         score = scan_item['vuln_score']
         try:
-            token = str(self.get_token())
-            url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={token}"
-            data = {}
-            data["touser"] = f"{TOUSER}"
-            data["toparty"] = f"{TOPARTY}"
-            data["totag"] = ""
-            data["msgtype"] = "text"
-            data["agentid"] = "1000002"
-            data["text"] = {}
-            data["text"]["content"] = f"Title：{title}\n{score}\nUrl：{website}\nDetail：{detail}"
-            data["safe"] = "0"
-            data["enable_id_trans"] = "0"
-            data["enable_duplicate_check"] = "0"
-            data = json.dumps(data)
-            logger.log('INFOR',data)
-            requests.post(url=url, data=data, verify=False, timeout=10)
+            if PLATFORM == "vx":
+                token = str(self.get_vx_token())
+                vx_url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={token}"
+                data = {}
+                data["touser"] = f"{TOUSER}"
+                data["toparty"] = f"{TOPARTY}"
+                data["totag"] = ""
+                data["msgtype"] = "text"
+                data["agentid"] = "1000002"
+                data["text"] = {}
+                data["text"]["content"] = f"Title：{title}\n{score}\nUrl：{website}\nDetail：{detail}"
+                data["safe"] = "0"
+                data["enable_id_trans"] = "0"
+                data["enable_duplicate_check"] = "0"
+                data = json.dumps(data)
+                logger.log('INFOR',data)
+                requests.post(url=vx_url, data=data, verify=False, timeout=10)
+            elif PLATFORM == "tg":
+                telegram_url = f"https://api.telegram.org/bot{TGTOKEN}/sendMessage"
+                data = {}
+                data["chat_id"] = f"{CHATID}"
+                data["text"] = f"Title：{title}\n{score}\nUrl：{website}\nDetail：{detail}"
+                logger.log('INFOR', data)
+                requests.post(url=telegram_url, data=data, verify=False, timeout=10)
         except Exception as error:
             logger.log('DEBUG',f'{error}')
 
     def send_message(self, message):
         try:
-            token = str(self.get_token())
-            url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={token}"
-            data = {}
-            data["touser"] = f"{TOUSER}"
-            data["toparty"] = f"{TOPARTY}"
-            data["totag"] = ""
-            data["msgtype"] = "text"
-            data["agentid"] = "1000002"
-            data["text"] = {}
-            data["text"]["content"] = f"{message}"
-            data["safe"] = "0"
-            data["enable_id_trans"] = "0"
-            data["enable_duplicate_check"] = "0"
-            data = json.dumps(data)
-            logger.log('INFOR',data)
-            requests.post(url=url, data=data, verify=False, timeout=10)
+            if PLATFORM == "vx":
+                token = str(self.get_vx_token())
+                vx_url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={token}"
+                data = {}
+                data["touser"] = f"{TOUSER}"
+                data["toparty"] = f"{TOPARTY}"
+                data["totag"] = ""
+                data["msgtype"] = "text"
+                data["agentid"] = "1000002"
+                data["text"] = {}
+                data["text"]["content"] = f"{message}"
+                data["safe"] = "0"
+                data["enable_id_trans"] = "0"
+                data["enable_duplicate_check"] = "0"
+                data = json.dumps(data)
+                logger.log('INFOR',data)
+                requests.post(url=vx_url, data=data, verify=False, timeout=10)
+            elif PLATFORM == "tg":
+                telegram_url = f"https://api.telegram.org/bot{TGTOKEN}/sendMessage"
+                data = {}
+                data["chat_id"] = f"{CHATID}"
+                data["text"] = f"{message}"
+                logger.log('INFOR', data)
+                requests.post(url=telegram_url, data=data, verify=False, timeout=10)
         except Exception as error:
             logger.log('DEBUG',f'{error}')
 
