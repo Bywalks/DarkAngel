@@ -299,6 +299,14 @@ url列表存放位置
 
 ![](http://www.bywalks.com/image/result_kibana_vuln.jpg)
 
+TG通知 - 漏洞结果
+
+![](http://www.bywalks.com/image/result_tg2.jpg)
+
+TG通知 - 扫描进程
+
+![](http://www.bywalks.com/image/result_tg1.jpg)
+
 微信通知 - 扫描进程
 
  ![](http://www.bywalks.com/image/result_vx1.png)

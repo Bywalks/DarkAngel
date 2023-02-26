@@ -301,7 +301,15 @@ Front End - Scan Results
 
 ![]( http://www.bywalks.com/image/result_kibana_vuln.jpg )
 
-WeChat notification - scanning process
+TG Notification - Vulnerability Results
+
+![](http://www.bywalks.com/image/result_tg2.jpg)
+
+TG Notification - Scanning Process
+
+![](http://www.bywalks.com/image/result_tg1.jpg)
+
+WeChat Notification - Scanning Process
 
 ![]( http://www.bywalks.com/image/result_vx1.png )
 
