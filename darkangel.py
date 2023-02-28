@@ -232,7 +232,7 @@ class DarkAngel(object):
                     for asset_info in asset_info_list:
                         print(asset_info)
                         try:
-                            self.spider_scan.write_spider_list(asset_info['_source'])
+                            self.spider_scan.write_spider_list_to_kibana(asset_info['_source'])
                         except Exception as error:
                             logger.log('DEBUG', f'{error}')
                     self.es_helper.remove_duplicate_data_in_spider_pdomain(pdomain=pdomain)
@@ -289,15 +289,15 @@ class DarkAngel(object):
         :return: 
         '''
         while True:
-            begin_time = datetime.datetime.now()
-            # begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
-            # begin_time = "2022-11-25T08:21:10.34Z"
-            logger.log('INFOR', "[begin_time]" + str(begin_time))
-
             if not self.es_helper.es_instance.ping():
                 logger.log('INFOR', f"ES未连接，请检查配置文件是否填写或是否正确。")
                 logger.log('DEBUG', f"ES未连接，请检查配置文件是否填写或是否正确。")
                 break
+
+            begin_time = datetime.datetime.now()
+            # begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
+            # begin_time = "2022-11-25T08:21:10.34Z"
+            logger.log('INFOR', "[begin_time]" + str(begin_time))
 
             time.sleep(30)
             # 收集新的私有程序
@@ -359,28 +359,32 @@ class DarkAngel(object):
             self.vuln_mng.send_message(message=message)
 
     def add_domain_and_scan(self, program_list, offer_bounty):
-        # 获取开始时间
-        begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
-        # begin_time = "2022-04-13T08:24:59Z"
-        logger.log('INFOR', "[begin_time]" + str(begin_time))
-        old_domains = self.h1_scan.searchallprogramdomain()
-        # 1：添加程序
-        if offer_bounty == "yes":
-            for each in program_list:
-                self.add_new_program_from_file(program=str(each), offer_bounty="yes", old_domains=old_domains)
-        elif offer_bounty == "no":
-            for each in program_list:
-                self.add_new_program_from_file(program=str(each), offer_bounty="no", old_domains=old_domains)
+        if not self.es_helper.es_instance.ping():
+            logger.log('INFOR', f"ES未连接，请检查配置文件是否填写或是否正确。")
+            logger.log('DEBUG', f"ES未连接，请检查配置文件是否填写或是否正确。")
+        else:
+            # 获取开始时间
+            begin_time = datetime.datetime.now().replace(hour=datetime.datetime.now().hour - 1)
+            # begin_time = "2022-04-13T08:24:59Z"
+            logger.log('INFOR', "[begin_time]" + str(begin_time))
+            old_domains = self.h1_scan.searchallprogramdomain()
+            # 1：添加程序
+            if offer_bounty == "yes":
+                for each in program_list:
+                    self.add_new_program_from_file(program=str(each), offer_bounty="yes", old_domains=old_domains)
+            elif offer_bounty == "no":
+                for each in program_list:
+                    self.add_new_program_from_file(program=str(each), offer_bounty="no", old_domains=old_domains)
 
-        time.sleep(10)
-        # 2：通过时间获取pdomain
-        pdomain_list = self.get_pdomain_by_launched_time(gte=begin_time, lt="2028-01-01")
+            time.sleep(10)
+            # 2：通过时间获取pdomain
+            pdomain_list = self.get_pdomain_by_launched_time(gte=begin_time, lt="2028-01-01")
 
-        # 3: 漏洞扫描模块-开始扫描
-        self.scan_module(pdomain_list=pdomain_list)
+            # 3: 漏洞扫描模块-开始扫描
+            self.scan_module(pdomain_list=pdomain_list)
 
-        # 添加bounty和no_bounty域名
-        self.save_new_url_list_by_time(begin_time=begin_time)
+            # 添加bounty和no_bounty域名
+            self.save_new_url_list_by_time(begin_time=begin_time)
 
     def add_new_domain(self):
         # 收集h1和bc 新program和pdomain

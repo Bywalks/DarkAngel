@@ -467,25 +467,6 @@ class NucleiScan(object):
                     f.write(asset_info_url + "\n")
         logger.log('INFOR',f'[+]添加-[{program}]-扫描文件成功')
 
-    def write_spider_list(self, program, asset_list):
-        #nuclei_output_json = "/root/vuln_scan/vulscan/results/nuclei/1.json"
-        urls_output_txt = f"{self.urls_resultDir}/{program}_urls_output.txt"
-        if os.path.exists(urls_output_txt):
-            os.remove(urls_output_txt)
-        new_asset_list = []
-        for each in asset_list:
-            new_asset_list.append(each['_source']['url'])
-        early_len = len(new_asset_list)
-        new_asset_list = list(set(new_asset_list))
-        after_len = len(new_asset_list)
-        logger.log('INFOR',"去重前长度"+str(early_len)+"-去重后长度"+str(after_len))
-        with open(urls_output_txt, 'a') as f:
-            for asset_info_url in new_asset_list:
-                if "?" not in asset_info_url and  "#" not in asset_info_url and "*" not in asset_info_url:
-                    #asset_info_url = asset_info['url']
-                    f.write(asset_info_url+"\n")
-        logger.log('INFOR',f'[+]添加-[{program}]-扫描文件成功')
-
     def write_nuclei_list(self, asset_info):
         url = asset_info['url']
         scheme = urlparse(url).scheme

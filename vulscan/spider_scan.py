@@ -36,6 +36,7 @@ class SpiderScan(object):
     def __init__(self):
         self.crawlergo_cmd = f"{CUR_DIR}/tools/crawlergo -c /usr/bin/google-chrome-stable -t 20 -f smart --fuzz-path --robots-path --output-json"
         self.spiderResultDir = CUR_DIR + "/results/spider"
+        self.urls_resultDir = CUR_DIR + "/results/urls"
         self.scanner_name = "spider_scan"
         self.domain_index = "domain-assets-1"
         self.spider_index = "spider-assets-1"
@@ -159,7 +160,7 @@ class SpiderScan(object):
                 copy_list.append(list_data)
         return copy_list
 
-    def write_spider_list(self,asset_info):
+    def write_spider_list_to_kibana(self,asset_info):
         url = asset_info['url']
         scheme = urlparse(url).scheme
         netloc = urlparse(url).netloc
@@ -196,6 +197,25 @@ class SpiderScan(object):
                     logger.log('INFOR',spider_info)
                     self.es_helper.insert_one_doc(self.spider_index, spider_info)
                 logger.log('INFOR',f'[+]爬取网站[{url}]入库完成')
+
+    def write_spider_list_to_txt(self, program, asset_list):
+        #nuclei_output_json = "/root/vuln_scan/vulscan/results/nuclei/1.json"
+        urls_output_txt = f"{self.urls_resultDir}/{program}_urls_output.txt"
+        if os.path.exists(urls_output_txt):
+            os.remove(urls_output_txt)
+        new_asset_list = []
+        for each in asset_list:
+            new_asset_list.append(each['_source']['url'])
+        early_len = len(new_asset_list)
+        new_asset_list = list(set(new_asset_list))
+        after_len = len(new_asset_list)
+        logger.log('INFOR',"去重前长度"+str(early_len)+"-去重后长度"+str(after_len))
+        with open(urls_output_txt, 'a') as f:
+            for asset_info_url in new_asset_list:
+                if "?" not in asset_info_url and  "#" not in asset_info_url and "*" not in asset_info_url:
+                    #asset_info_url = asset_info['url']
+                    f.write(asset_info_url+"\n")
+        logger.log('INFOR',f'[+]添加-[{program}]-扫描文件成功')
 
 if __name__ == "__main__":
     '''
