@@ -107,13 +107,13 @@ docker pull bywalkss/darkangel:kibana7.9.3
 docker run --name kibana -e ELASTICSEARCH_URL=http://es-ip:9200 -p 5601:5601 -d docker.io/bywalkss/darkangel:kibana7.9.3
 
 查看日志
-docker logs -f elasticsearch
+docker logs -f kibana
 
 出现问题，执行命令
 sysctl -w vm.max_map_count=262144
 
 重启docker
-docker start elasticsearch
+docker start kibana
 ```
 
 扫描器镜像：

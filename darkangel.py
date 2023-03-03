@@ -933,6 +933,35 @@ class DarkAngel(object):
         if url_list != None:
             self.nuclei_scan.write_url_list(program=filename, asset_list=url_list)
 
+    def write_all_program(self, gte=None, lt=None):
+        if gte == None:
+            gte = "2010-01-01"
+        if lt == None:
+            lt = "2030-01-01"
+        # read_new_url_list_by_time 区别在于用的是update_time
+        all_program_list = self.get_pdomain_by_launched_time(gte, lt)
+        all_program = []
+        print(all_program_list)
+        if all_program_list != None:
+            for each in all_program_list:
+                each = each["_source"]["program"]
+                all_program.append(each)
+        all_program = set(all_program)
+        with open("/root/DarkAngel/result.txt","a+") as f:
+            for program_name in all_program:
+                f.write(program_name+"\n")
+
+    def write_all_spider_data(self):
+        all_program = []
+        with open("/root/DarkAngel/result.txt", "r") as f:
+            for each in f:
+                print(each.replace('\n', ''))
+                all_program.append(each.replace('\n', ''))
+        for program_name in all_program:
+            spider_data = self.spider_scan.read_spider_list_by_program(program=program_name)
+            if spider_data != None:
+                self.spider_scan.write_spider_list_to_txt(program=program_name, asset_list=spider_data)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--add-new-domain", help="add new domain from h1 and bc", action="store_true")

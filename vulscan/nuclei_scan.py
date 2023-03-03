@@ -165,21 +165,6 @@ class NucleiScan(object):
         new_url_list = self.es_helper.query_domains_by_dsl(self.domain_index, dsl)
         return new_url_list
 
-    def read_spider_list_by_program(self, program):
-        '''根据筛选条件读取url的list'''
-        dsl = {
-            "query": {
-                "bool": {
-                    "must": [
-                        {"match_phrase": {"program": str(program)}}
-                    ]
-                }
-            },
-            "_source": ["url"]
-        }
-        url_list = self.es_helper.query_domains_by_dsl(self.spider_index, dsl)
-        return url_list
-
     def read_url_list(self, program=None, pdomain=None, subdomain=None):
         '''根据筛选条件读取url的list'''
         if subdomain != None:

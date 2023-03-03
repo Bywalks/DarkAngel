@@ -166,7 +166,7 @@ class SpiderScan(object):
         netloc = urlparse(url).netloc
         if ":" in netloc:
             netloc = urlparse(url).netloc.split(":")[0] + "_" + urlparse(url).netloc.split(":")[1]
-        #file = "/root/vuln_scan/vulscan/results/172.16.100.203_crawlergo_output.json"
+        #file = "/root/vuln_scan/vulscan/results/xx_crawlergo_output.json"
         crawlergo_output_json = f"{self.spiderResultDir}/{scheme}_{netloc}_crawlergo_output.json"
         if os.path.exists(crawlergo_output_json):
             logger.log('INFOR',"[+]"+crawlergo_output_json)
@@ -205,21 +205,40 @@ class SpiderScan(object):
             os.remove(urls_output_txt)
         new_asset_list = []
         for each in asset_list:
-            new_asset_list.append(each['_source']['url'])
-        early_len = len(new_asset_list)
-        new_asset_list = list(set(new_asset_list))
-        after_len = len(new_asset_list)
-        logger.log('INFOR',"去重前长度"+str(early_len)+"-去重后长度"+str(after_len))
-        with open(urls_output_txt, 'a') as f:
-            for asset_info_url in new_asset_list:
-                if "?" not in asset_info_url and  "#" not in asset_info_url and "*" not in asset_info_url:
-                    #asset_info_url = asset_info['url']
-                    f.write(asset_info_url+"\n")
-        logger.log('INFOR',f'[+]添加-[{program}]-扫描文件成功')
+            url = each['_source']['url']
+            if url.count("/") > 3:
+                if "?" not in url and ".jsp" not in url and ".html" not in url and len(url)<90:
+                    new_asset_list.append(url)
+        if new_asset_list != None:
+            early_len = len(new_asset_list)
+            new_asset_list = list(set(new_asset_list))
+            after_len = len(new_asset_list)
+            logger.log('INFOR',"去重前长度"+str(early_len)+"-去重后长度"+str(after_len))
+            with open(urls_output_txt, 'a') as f:
+                for asset_info_url in new_asset_list:
+                    if "?" not in asset_info_url and  "#" not in asset_info_url and "*" not in asset_info_url:
+                        #asset_info_url = asset_info['url']
+                        f.write(asset_info_url+"\n")
+            logger.log('INFOR',f'[+]添加-[{program}]-扫描文件成功')
+
+    def read_spider_list_by_program(self, program):
+        '''根据筛选条件读取url的list'''
+        dsl = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"match_phrase": {"program": str(program)}}
+                    ]
+                }
+            },
+            "_source": ["url"]
+        }
+        url_list = self.es_helper.query_domains_by_dsl(self.spider_index, dsl)
+        return url_list
 
 if __name__ == "__main__":
     '''
-    spider_scan = SpiderScan()  # http://172.16.234.134:10083/http://172.16.200.60:8080
+    spider_scan = SpiderScan()  
     asset_info_list = spider_scan.read_url_list(program="ninja-kiwi")
     #asset_info_list = [{"program":"p1", "launched_at":"Oct 13, 2021 @ 16:48:10.985", "url":"http://www.52helong.cn/", "max_severity":"p1"}]
     start = time.time()
