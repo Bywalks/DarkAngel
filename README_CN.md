@@ -85,7 +85,7 @@ ES镜像：
 docker pull bywalkss/darkangel:es7.9.3
 
 部署ES镜像
-docker run -e ES_JAVA_OPTS="-Xms1024m -Xms1024m" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
+docker run -e ES_JAVA_OPTS="-Xms1024m -Xms1024m" -e "discovery.type=single-node" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
 
 查看日志
 docker logs -f elasticsearch

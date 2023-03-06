@@ -87,7 +87,7 @@ Pull ES image
 docker pull bywalkss/darkangel:es7.9.3
 
 Deploy ES image
-docker run -e ES_ JAVA_ OPTS="-Xms1024m -Xms1024m" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
+docker run -e ES_JAVA_OPTS="-Xms1024m -Xms1024m" -e "discovery.type=single-node" -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3
 
 view log
 docker logs -f elasticsearch
