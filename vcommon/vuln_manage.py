@@ -305,7 +305,10 @@ class VulnManager(object):
         vuln_image_name = f"{vuln_name}_{host_name}.png"
         logger.log('INFOR', "Start screenshot.")
         logger.log('INFOR', f"screenshot: {vuln_url}")
-        self.screenshot_driver(vuln_url, vuln_image_name)
+        try:
+            self.screenshot_driver(vuln_url, vuln_image_name)
+        except Exception as error:
+            logger.log('DEBUG',f'{error}')
 
     def screenshot_driver(self, vuln_url, vuln_image_name):
         options = webdriver.ChromeOptions()

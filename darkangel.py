@@ -705,6 +705,7 @@ class DarkAngel(object):
             self.vuln_mng.send_message(message=message)
 
             time.sleep(15)
+
             # 开始扫描bc赏金部分
             self.nuclei_five_file_scan(offer_bounty="yes", platform="bc")
             # 通知
