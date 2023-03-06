@@ -2,7 +2,7 @@
 # -*-coding:utf-8 -*-
 
 """
-# File       : subdomain_dir_scan.py
+# File       : shodan_scan.py
 # Time       ：2022/06/27
 # version    ：python 3
 # Description：
@@ -397,7 +397,8 @@ class ShodanScan(object):
 if __name__ == "__main__":
     #subdomainport_scan = SubdomainPortScan()
     #subdomainport_scan.subdomainport_scan_all()
-    shodanscan = ShodanScan()
+    #shodanscan = ShodanScan()
     #dirscan.testScan(url="https://lessons.uacdn.net")
-    shodanscan.shodan_scan_all()
+    #shodanscan.shodan_scan_all()
     #shodanscan.write_shodan_list(program="*.google.com")
+    pass

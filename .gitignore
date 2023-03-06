@@ -1,2 +1,2 @@
 .idea
-vuln/subdomain_dir_scan.py
+vulscan/subdomain_dir_scan.py
