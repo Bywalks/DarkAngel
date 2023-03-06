@@ -32,7 +32,7 @@ CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class ShodanScan(object):
     def __init__(self):
-        self.api = Shodan('BhfI5HjeTI3UH2IJFCqDeJRPSSEEiji6')
+        self.api = Shodan('')
         self.subdomain_resultDir = CUR_DIR + "/results/urls"
         self.es_helper = ESHelper(ES_HOSTS, ES_USER, ES_PASSWD)
         self.nuclei_scan = NucleiScan()

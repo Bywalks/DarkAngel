@@ -1,3 +1,4 @@
 .idea
 vulscan/subdomain_dir_scan.py
-vulscan/1.py
+vulscan/shodan_scan.py
+vulscan/jsfinder_scan.py
