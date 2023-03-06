@@ -421,6 +421,7 @@ class SubdomainDirScan(object):
 if __name__ == "__main__":
     #subdomainport_scan = SubdomainPortScan()
     #subdomainport_scan.subdomainport_scan_all()
-    dirscan = SubdomainDirScan()
+    #dirscan = SubdomainDirScan()
     #dirscan.testScan(url="https://lessons.uacdn.net")
-    dirscan.subdomaindir_scan_all()
+    #dirscan.subdomaindir_scan_all()
+    pass
