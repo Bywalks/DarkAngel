@@ -300,12 +300,12 @@ class NucleiScan(object):
 
     def startNucleiScan(self,asset_info):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://domain.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
         :return:
         '''
         logger.log('INFOR',"Nuclei urls scan starting....")
         assert os.path.exists(self.nuclei_path), f"nuclei file:{self.nuclei_path} not exists!"
-        # url = "http://www.52helong.cn/"
+        # url = "http://www.domain.cn/"
         url = asset_info['url']
         scheme = urlparse(url).scheme
         netloc = urlparse(url).netloc
@@ -322,7 +322,7 @@ class NucleiScan(object):
             os.remove(nuclei_output_file)
         cmd_lines = f"{self.nuclei_cmd} -json -o {nuclei_output_file} -u {url}"
         logger.log('INFOR',cmd_lines)
-        # 开启dirsearch
+        # 开启nuclei
         os.system(cmd_lines)
 
     def startNucleiNewTemlScan(self,asset_info):
@@ -595,12 +595,13 @@ class NucleiScan(object):
                         logger.log('DEBUG', f'{error}')
         return templatename
 
+'''
 if __name__ == "__main__":
     #nuclei_scan = NucleiScan()
     #asset_info = [{
     #    'url': 'https://tw.mina.mi.com'
     #}]
-    '''
+
     nuclei_scan = NucleiScan()
     asset_info = {
         'url': 'https://registry.git.maximum.nl'
@@ -614,5 +615,4 @@ if __name__ == "__main__":
     for each in asset_info:
         nuclei_scan.startNucleiScan(each['_source'])
     #nuclei_scan.write_nuclei_list(asset_info)
-    '''
-    pass
+'''

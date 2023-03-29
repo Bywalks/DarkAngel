@@ -1,17 +1,14 @@
 ## Title:
-Env Disclosure via Spring Boot Actuator
+Env Disclosure via Spring Boot Actuator - [https://ccap.codeforamerica.org]
 
 ## Summary
-The Spring Boot Actuators are exposing critical information on **[website]** and **other** such as the environment configuration.
+The Spring Boot Actuators are exposing information on **[website]** and **other** such as the environment configuration.
 
 The endpoints are the following:
-- /env
+- /actuator/env
 
 ## PoC - Get the environment configuration
-Visit the following URL: [website]. The HTTP response will show the Spring Boot configuration file:
-
-**spring.datasource.url:"jdbc:sqlserver://sql004010l.app.123.com;databaseName=UEComProdFMADB"**
-**http.nonProxyHosts:"localhost|127.0.0.1|19.0.0.0/8|10.0.0.0/8|172.16.0.0/12|*.123.com"**
+Visit the following URL: https://ccap.codeforamerica.org/actuator/env. The HTTP response will show the Spring Boot configuration file:
 
 ## Below is a screenshot
 {}

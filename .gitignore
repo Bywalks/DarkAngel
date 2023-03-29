@@ -2,3 +2,6 @@
 vulscan/subdomain_dir_scan.py
 vulscan/shodan_scan.py
 vulscan/jsfinder_scan.py
+vulscan/secret_finder_scan.py
+vulscan/wordpress_scan.py
+vulscan/test.py
