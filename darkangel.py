@@ -143,7 +143,7 @@ class DarkAngel(object):
 
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[Subdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                                'program'] + "-" + pdomain_info['_source']['domain'])
                 try:
@@ -160,7 +160,7 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[SubdomainPort] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                                'program'] + "-" + pdomain_info['_source']['domain'])
                 try:
@@ -173,7 +173,7 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO', "[Fingerprint] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" +
+                logger.log('INFOR', "[Fingerprint] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" +
                            pdomain_info['_source']['program'] + "-" + pdomain_info['_source']['domain'])
                 self.finger_scan.finger_scan_by_pdomain(pdomain=pdomain)
                 i = i + 1
@@ -182,7 +182,7 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[Nuclei-Pdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                                'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
@@ -192,7 +192,7 @@ class DarkAngel(object):
 
                     j = 1
                     for url_info in new_nuclei_url_list:
-                        logger.log('INFO', "[Nuclei-Subdomain] 开始扫描第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
+                        logger.log('INFOR', "[Nuclei-Subdomain] 开始扫描第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
                                    url_info['_source']['url'])
                         j = j + 1
                         f1 = executor.submit(self.nuclei_scan.startNucleiScan, url_info['_source'])
@@ -202,7 +202,7 @@ class DarkAngel(object):
 
                     j = 1
                     for url_info1 in new_nuclei_url_list:
-                        logger.log('INFO', "[Nuclei-Subdomain] 开始写入第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
+                        logger.log('INFOR', "[Nuclei-Subdomain] 开始写入第" + str(j) + "/" + str(new_nuclei_url_len) + "-" +
                                    url_info1['_source']['url'])
                         j = j + 1
                         self.nuclei_scan.write_nuclei_list(url_info1['_source'])
@@ -211,14 +211,14 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO', "[Spider] 开始爬取第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFOR', "[Spider] 开始爬取第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
                 asset_info_list = self.spider_scan.read_url_list(pdomain=pdomain)
                 if asset_info_list != None:
                     for asset_info in asset_info_list:
                         asset_info = asset_info['_source']
-                        logger.log('INFO', asset_info)
+                        logger.log('INFOR', asset_info)
                         f1 = executor.submit(self.spider_scan.spider, asset_info)
                         futures.append(f1)
                     # 等待futures里面所有的子线程执行结束， 再执行主线程(join())
@@ -228,7 +228,7 @@ class DarkAngel(object):
             i = 1
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
-                logger.log('INFO', "[Spider] 开始写入第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFOR', "[Spider] 开始写入第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 # 做spider之前pdomain中有http:// https://则把http://或者https://去除掉再查（加http://或者https://）
                 asset_info_list = self.spider_scan.read_url_list(pdomain=pdomain)
@@ -250,12 +250,12 @@ class DarkAngel(object):
             for pdomain_info in pdomain_list:
                 pdomain = pdomain_info['_source']['domain']
                 pdomain = self.fuzz_scan.deal_domain_name(domain_name=pdomain)
-                logger.log('INFO', "[Fuzz] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFOR', "[Fuzz] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 if pdomain != None:
                     self.fuzz_scan.startfuzz(pdomain=pdomain)
                     time.sleep(1)
-                    logger.log('INFO', "[Fuzz] 扫描成功" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                    logger.log('INFOR', "[Fuzz] 扫描成功" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                         'program'] + "-" + pdomain_info['_source']['domain'])
                     self.fuzz_scan.write_fuzz_list(domain=pdomain)
                 i = i + 1
@@ -277,14 +277,14 @@ class DarkAngel(object):
 
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO', "[Xray] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
+                logger.log('INFOR', "[Xray] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                     'program'] + "-" + pdomain_info['_source']['domain'])
                 i = i + 1
                 pdomain = pdomain_info['_source']['domain']
                 self.xray_scan.startdispatch(pdomain=pdomain)
 
         else:
-            logger.log('INFO', "不存在新增pdomain，扫描结束！")
+            logger.log('INFOR', "不存在新增pdomain，扫描结束！")
 
     def scan_new_domain(self):
         # 1：收集h1和bc 新program和pdomain
@@ -419,12 +419,12 @@ class DarkAngel(object):
             pdomain_len = len(pdomain_list)
             i = 1
             for pdomain_info in pdomain_list:
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[Subdomain] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain_info['_source'][
                                'domain'])
                 i = i + 1
                 try:
-                    logger.log('INFO', pdomain_info['_source']['program'] + " - " + pdomain_info['_source']['domain'])
+                    logger.log('INFOR', pdomain_info['_source']['program'] + " - " + pdomain_info['_source']['domain'])
                     self.subdomain_scan.scansubdomain(pdomain_info)
                 except Exception as error:
                     logger.log('DEBUG', f'{error}')
@@ -436,7 +436,7 @@ class DarkAngel(object):
         with open(file_name, 'r') as f:
             for each in f:
                 each = each.strip("\n")
-                logger.log('INFO', "[Subdomain] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + each)
+                logger.log('INFOR', "[Subdomain] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + each)
                 pdomain_info = self.subdomain_scan.read_domains_by_domain(str(each))
                 if pdomain_info:
                     try:
@@ -459,22 +459,22 @@ class DarkAngel(object):
             for each_info in pdomain_list:
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
-                    logger.log('INFO', pdomain_info)
+                    logger.log('INFOR', pdomain_info)
                     url_list = self.nuclei_scan.read_url_list(pdomain=pdomain_info)
                     if url_list:
-                        logger.log('INFO', url_list)
+                        logger.log('INFOR', url_list)
                         self.nuclei_scan.write_url_list(program=pdomain_info, asset_list=url_list)
 
             # 对这些以pdomain为单位的url_list进行nuclei扫描
             for each_info in pdomain_list:
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + each_info['_source']['domain'])
                 i = i + 1
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
                     try:
                         # pdomain_info = each_info["_source"]["domain"]
-                        logger.log('INFO', pdomain_info)
+                        logger.log('INFOR', pdomain_info)
                         urls_output_txt = f"{self.nuclei_scan.urls_resultDir}/{pdomain_info}_urls_output.txt"
                         if os.path.exists(urls_output_txt):
                             self.nuclei_scan.startNucleiTempFileScan(program=pdomain_info,
@@ -509,7 +509,7 @@ class DarkAngel(object):
             args = []
             args.append(file_name)
             args.append(templateName)
-            logger.log('INFO', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             f1 = executor.submit(lambda p: self.nuclei_scan.startNucleiTempFileScan(*p), args)
             futures.append(f1)
             i = i + 1
@@ -518,7 +518,7 @@ class DarkAngel(object):
 
         i = 1
         for file_name in file_list:
-            logger.log('INFO', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             self.nuclei_scan.write_nuclei_template_list(program=file_name)
             i = i + 1
 
@@ -536,22 +536,22 @@ class DarkAngel(object):
             for each_info in pdomain_list:
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
-                    logger.log('INFO', pdomain_info)
+                    logger.log('INFOR', pdomain_info)
                     url_list = self.nuclei_scan.read_url_list(pdomain=pdomain_info)
                     if url_list:
-                        logger.log('INFO', url_list)
+                        logger.log('INFOR', url_list)
                         self.nuclei_scan.write_url_list(program=pdomain_info, asset_list=url_list)
 
             # 对这些以pdomain为单位的url_list进行nuclei扫描
             for each_info in pdomain_list:
-                logger.log('INFO',
+                logger.log('INFOR',
                            "[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + each_info['_source']['domain'])
                 i = i + 1
                 pdomain_info = each_info["_source"]["domain"]
                 if "/" not in pdomain_info:
                     try:
                         # pdomain_info = each_info["_source"]["domain"]
-                        logger.log('INFO', pdomain_info)
+                        logger.log('INFOR', pdomain_info)
                         urls_output_txt = f"{self.nuclei_scan.urls_resultDir}/{pdomain_info}_urls_output.txt"
                         if os.path.exists(urls_output_txt):
                             self.nuclei_scan.startNucleiTempFileScan(program=pdomain_info,
@@ -579,7 +579,7 @@ class DarkAngel(object):
         executor = ThreadPoolExecutor(max_workers=5)
         futures = []
         for file_name in file_list:
-            logger.log('INFO', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             f1 = executor.submit(self.nuclei_scan.startNucleiNewTemlFileScan, file_name)
             futures.append(f1)
             i = i + 1
@@ -588,7 +588,7 @@ class DarkAngel(object):
 
         i = 1
         for file_name in file_list:
-            logger.log('INFO', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             self.nuclei_scan.write_nuclei_template_list(program=file_name)
             i = i + 1
 
@@ -612,7 +612,7 @@ class DarkAngel(object):
         futures = []
 
         for file_name in file_list:
-            logger.log('INFO', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             f1 = executor.submit(self.nuclei_scan.startNucleiFileScan, file_name)
             futures.append(f1)
             i = i + 1
@@ -621,7 +621,7 @@ class DarkAngel(object):
 
         i = 1
         for file_name in file_list:
-            logger.log('INFO', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
+            logger.log('INFOR', "[Nuclei] 开始写入第" + str(i) + "/" + str(file_len) + "-" + str(file_name))
             self.nuclei_scan.write_nuclei_template_list(program=file_name)
             i = i + 1
 
@@ -800,8 +800,8 @@ class DarkAngel(object):
         number = int(number)
         while True:
             template_url = f"https://github.com/projectdiscovery/nuclei-templates/pull/{number}"
-            logger.log('INFO', "[NEW-Nuclei] 开始扫描第" + str(number))
-            logger.log('INFO', "[NEW-Nuclei] 开始扫描 - " + str(template_url))
+            logger.log('INFOR', "[NEW-Nuclei] 开始扫描第" + str(number))
+            logger.log('INFOR', "[NEW-Nuclei] 开始扫描 - " + str(template_url))
             try:
                 r = requests.get(url=template_url, verify=False, timeout=10)
                 if r.status_code == 404:
@@ -816,7 +816,7 @@ class DarkAngel(object):
                     except Exception as error:
                         logger.log('DEBUG', f'{error}')
                     if template_name != "":
-                        logger.log('INFO', "[NEW-Nuclei] 开始扫描" + str(template_name))
+                        logger.log('INFOR', "[NEW-Nuclei] 开始扫描" + str(template_name))
                         message = f"Nuclei模板{number}-{template_name}已更新,开始检测。\nurl:{template_url}"
                         self.vuln_mng.send_message(message=message)
                         time.sleep(10)
@@ -868,7 +868,7 @@ class DarkAngel(object):
         with open(file, "r") as f:
             for each in f:
                 each = each.strip("\n")
-                logger.log('INFO', f'Add {str(program)} - {each}')
+                logger.log('INFOR', f'Add {str(program)} - {each}')
                 if str(each) not in old_domains:
                     asset_info = {'domain': str(each), 'resolved_report_count': 0, 'submission_state': 'open',
                                   'max_severity': 'critical', 'update_time': data, 'hackerone_private': "yes",
@@ -990,7 +990,7 @@ def main():
             gte = datetime.datetime.strptime(args.scan_domain_by_time[0], "%Y-%m-%d")
             lt = datetime.datetime.strptime(args.scan_domain_by_time[1], "%Y-%m-%d")
             if gte >= lt:
-                logger.log('INFO',"时间输入错误，之后的时间点需大于之前的时间点！")
+                logger.log('INFOR',"时间输入错误，之后的时间点需大于之前的时间点！")
                 return
             else:
                 darkAngel.scan_domain_by_time(gte, lt)

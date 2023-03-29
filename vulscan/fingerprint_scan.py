@@ -36,7 +36,7 @@ class FingerprintScan(object):
         self.domain_index = "domain-assets-1"
 
     def searchallprogramdomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {'query': {'match_all': {}}}
         res = self.es_helper.query_domains_by_dsl(self.program_index,dsl=query)
         pdomain_list = []
@@ -256,7 +256,7 @@ class FingerprintScan(object):
         # 2:write all pdomain file
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Fingerprint] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[Fingerprint] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             asset_list = self.read_url_list(pdomain=pdomain)
             if asset_list != None:
                 pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.","").replace("*","")
@@ -266,7 +266,7 @@ class FingerprintScan(object):
         # 3:start scan fingerprint
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Fingerprint] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[Fingerprint] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startFingerprintFileScan(program=pdomain_name)
             i = i + 1
@@ -274,7 +274,7 @@ class FingerprintScan(object):
         # 4:write fingerprint
         i= 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Fingerprint] 开始写入指纹第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[Fingerprint] 开始写入指纹第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             try:
                 self.write_fingerprint_file_list(program=pdomain_name)
@@ -283,7 +283,7 @@ class FingerprintScan(object):
             i = i + 1
 
     def finger_scan_by_pdomain(self, pdomain=None):
-        logger.log('INFO',"[Fingerprint] 开始写入 - " + pdomain)
+        logger.log('INFOR',"[Fingerprint] 开始写入 - " + pdomain)
         asset_list = self.read_url_list(pdomain=pdomain)
         if asset_list != None:
             # write pdomain file
@@ -291,12 +291,12 @@ class FingerprintScan(object):
             self.write_url_list(program=pdomain_name,asset_list=asset_list)
 
             # start scan fingerprint
-            logger.log('INFO',"[Fingerprint] 开始扫描 - " + pdomain)
+            logger.log('INFOR',"[Fingerprint] 开始扫描 - " + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startFingerprintFileScan(program=pdomain_name)
 
             # write fingerprint
-            logger.log('INFO',"[Fingerprint] 开始写入指纹 - " + pdomain)
+            logger.log('INFOR',"[Fingerprint] 开始写入指纹 - " + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.write_fingerprint_file_list(program=pdomain_name)
 

@@ -105,12 +105,12 @@ class XrayScan(object):
         return copy_list
 
     def dispatch(self,spider_list):
-        logger.log('INFO',"[scanning]")
+        logger.log('INFOR',"[scanning]")
         # 爬虫结果分阶段打入xray，若Xray待扫描数大于2000，则sleep 300s
         for spider_data in spider_list:
             #spider_data = spider_data['_source']
             if NUM_SCAN >= 2000:
-                logger.log('INFO','[-]xray当前队列过多，等待300S后继续打入数据进队列')
+                logger.log('INFOR','[-]xray当前队列过多，等待300S后继续打入数据进队列')
                 time.sleep(300)
             if spider_data['url'][:2] != "ws":
                 proxies = {
@@ -118,7 +118,7 @@ class XrayScan(object):
                     'https': 'http://127.0.0.1:7777',
                 }
                 urls0 = spider_data['url']
-                logger.log('INFO',spider_data['url'])
+                logger.log('INFOR',spider_data['url'])
                 headers0 = spider_data['headers']
                 method0 = spider_data['method']
                 data0 = spider_data['data']
@@ -132,19 +132,19 @@ class XrayScan(object):
                     logger.log('DEBUG',f'{error}')
                     continue
                 finally:
-                    logger.log('INFO',NUM_SCAN)
+                    logger.log('INFOR',NUM_SCAN)
         while True:
             if NUM_SCAN !=0:
                 time.sleep(10)
             else:
-                logger.log('INFO',"dispatch is ok!")
+                logger.log('INFOR',"dispatch is ok!")
                 break
 
     def delxray(self):
         searchxray_cmd_line = "ps -ef | grep xray | grep -v grep | awk '{print $2}'"
         output, stderr, return_code = cmdprocess(searchxray_cmd_line)
-        logger.log('INFO',"output is : " + output)
-        logger.log('INFO',len(output))
+        logger.log('INFOR',"output is : " + output)
+        logger.log('INFOR',len(output))
         if output:
             result = output.splitlines()
             for re in result:
@@ -155,7 +155,7 @@ class XrayScan(object):
         assert os.path.exists(self.xray_config), f"xray file:{self.xray_config} not exists!"
         # cmd_lines = f"{self.xray_cmd} webscan --listen 127.0.0.1:7777 --json-output {xray_output_json} >> {self.resultDir}/log.txt"
         cmd_lines = f"{self.xray_cmd} webscan --listen 127.0.0.1:7777 --webhook-output http://127.0.0.1:8899/webhook"
-        logger.log('INFO',cmd_lines)
+        logger.log('INFOR',cmd_lines)
         # 开启xray
         os.system(cmd_lines)
         #subprocess.Popen(cmd_lines, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
@@ -170,7 +170,7 @@ class XrayScan(object):
         if subdomain != None:
             spider_list = self.read_spider_list(subdomain=subdomain)
         if spider_list!=None:
-            logger.log('INFO',"start dispatching ....")
+            logger.log('INFOR',"start dispatching ....")
             # 去除重复数据
             spider_list = self.remove_duplicate_data(spider_list)
             # 调度爬虫结果，扫完后关闭flask和xray
@@ -194,15 +194,15 @@ def xray_webhook():
             new_doc['vuln_name'] = data['plugin']
             if data['target']['url']:
                 new_doc['website'] = urlparse(data['target']['url']).netloc
-            logger.log('INFO',f"Xray新漏洞：[{new_doc['vuln_name']}]-{data['target']}")
+            logger.log('INFOR',f"Xray新漏洞：[{new_doc['vuln_name']}]-{data['target']}")
             # 添加vul_type和vul_score后打入ES
             vuln_manager.add_vuln_type(new_doc)
             vuln_manager.add_vuln_score(new_doc)
-            logger.log('INFO',new_doc)
+            logger.log('INFOR',new_doc)
             vuln_manager.generate_report(new_doc)
             vuln_manager.start_screenshot_driver(new_doc)
             vuln_manager.es_helper.insert_one_doc(index="vuln-assets-1",asset_info=new_doc)
-            logger.log('INFO',"find vuln and insert success!")
+            logger.log('INFOR',"find vuln and insert success!")
         else:
             if vuln['type'] == "web_statistic":
                 num_found_urls = vuln['data']['num_found_urls']
@@ -210,7 +210,7 @@ def xray_webhook():
                 pending = int(num_found_urls) - int(num_scanned_urls)
                 global NUM_SCAN
                 NUM_SCAN = pending
-                logger.log('INFO',f'Xray queue [{NUM_SCAN}]')
+                logger.log('INFOR',f'Xray queue [{NUM_SCAN}]')
     finally:
         return "ok"
 

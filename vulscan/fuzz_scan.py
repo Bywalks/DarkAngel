@@ -184,12 +184,12 @@ class FuzzScan(object):
         return copy_list
 
     def fuzzing(self,spider_list):
-        logger.log('INFO',"[fuzzing]")
+        logger.log('INFOR',"[fuzzing]")
         # 爬虫结果分阶段打入fuzz模块
         for spider_data in spider_list:
             # fuzz分get和post方式
             if spider_data['url'][:2] != "ws":
-                logger.log('INFO', spider_data['url'])
+                logger.log('INFOR', spider_data['url'])
                 method0 = spider_data['method']
                 if method0 == "GET":
                     # self.fuzz_get_uri(spider_data, type="ssrf")
@@ -446,13 +446,13 @@ class FuzzScan(object):
         if url != None:
             spider_list = self.read_spider_list(url=url)
         if spider_list!=None:
-            logger.log('INFO',"[Fuzz]start fuzz dispatching ....")
+            logger.log('INFOR',"[Fuzz]start fuzz dispatching ....")
             # 去除重复数据
             spider_list = self.remove_duplicate_data(spider_list)
             # 开始fuzz
             self.fuzzing(spider_list)
         else:
-            logger.log('INFO', "[Fuzz]spider_list is None ....")
+            logger.log('INFOR', "[Fuzz]spider_list is None ....")
 
 
     def deal_domain_name(self, domain_name):
@@ -478,7 +478,7 @@ if __name__ == "__main__":
         pdomain = pdomain['_source']['domain']
         pdomain = fuzz_scan.deal_domain_name(domain_name=pdomain)
         if pdomain != None:
-            logger.log('INFO', "[Fuzz] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(pdomain))
+            logger.log('INFOR', "[Fuzz] 开始扫描第" + str(i) + "/" + str(file_len) + "-" + str(pdomain))
             fuzz_scan.startfuzz(pdomain=pdomain)
             time.sleep(1)
             fuzz_scan.write_fuzz_list(domain=pdomain)

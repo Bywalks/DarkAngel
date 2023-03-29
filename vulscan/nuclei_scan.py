@@ -584,7 +584,7 @@ class NucleiScan(object):
                                 else:
                                     templatename = f"vulnerabilities/my/{templatename_yaml}"
                                     filename = f"{self.nuclei_template_path}{templatename}"
-                                logger.log('INFO', f'nuclei_template - {templatename} 添加成功')
+                                logger.log('INFOR', f'nuclei_template - {templatename} 添加成功')
                                 if filename != "":
                                     if os.path.exists(filename):
                                         templatename = ""

@@ -40,7 +40,7 @@ class SubdomainPortScan(object):
         self.domain_index = "domain-assets-1"
 
     def searchallprogramdomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {'query': {'match_all': {}}}
         res = self.es_helper.query_domains_by_dsl(self.program_index,dsl=query)
         pdomain_list = []
@@ -245,7 +245,7 @@ class SubdomainPortScan(object):
         # 2:write all subdomain by pdomain
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainPort] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             asset_list = self.read_subdomain_list(pdomain=pdomain)
             if asset_list != None:
                 pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.","").replace("*","")
@@ -256,7 +256,7 @@ class SubdomainPortScan(object):
         # 3:start scan subdomain port
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainPort] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startSubdomainPortFileScan(program=pdomain_name)
             i = i + 1
@@ -264,7 +264,7 @@ class SubdomainPortScan(object):
         # 4:write subdomain port
         i= 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainPort] 开始写入资产第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始写入资产第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             psource = self.read_info_by_pdomain(pdomain=pdomain)
             if psource != None:
                 try:
@@ -275,7 +275,7 @@ class SubdomainPortScan(object):
             i = i + 1
 
     def subdomainport_scan_by_pdomain(self, pdomain=None):
-        logger.log('INFO',"[SubdomainPort] 开始写入 - " + pdomain)
+        logger.log('INFOR',"[SubdomainPort] 开始写入 - " + pdomain)
         asset_list = self.read_subdomain_list(pdomain=pdomain)
         if asset_list != None:
             # write subdomain file by pdomain
@@ -283,12 +283,12 @@ class SubdomainPortScan(object):
             self.write_subdomain_list(program=pdomain_name,asset_list=asset_list)
 
             # start scan subdomain
-            logger.log('INFO',"[SubdomainPort] 开始扫描 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始扫描 - " + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startSubdomainPortFileScan(program=pdomain_name)
 
             # write subdomain
-            logger.log('INFO',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
             psource = self.read_info_by_pdomain(pdomain=pdomain)
             if psource != None:
                 try:

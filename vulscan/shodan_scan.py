@@ -42,7 +42,7 @@ class ShodanScan(object):
         self.dirsearch_index = "dirsearch-assets-1"
 
     def searchallprogramdomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {'query': {'match_all': {}}}
         res = self.es_helper.query_domains_by_dsl(self.program_index,dsl=query)
         pdomain_list = []
@@ -52,7 +52,7 @@ class ShodanScan(object):
         return pdomain_list
 
     def searchallprivatebountydomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {
             "query": {
                 "bool": {"must": [
@@ -341,7 +341,7 @@ class ShodanScan(object):
         # 2:write all shodan subdomain by pdomain
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainDir] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainDir] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             if i > 95:
                 pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0]
                 if pdomain_name.startswith('*.') and len(pdomain_name.split("*")) < 3:
@@ -351,7 +351,7 @@ class ShodanScan(object):
         # 3:scan
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + str(pdomain))
+            logger.log('INFOR',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + str(pdomain))
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             pdomain_info = self.es_helper.remove_http_or_https(pdomain).split("/")[0]
             if pdomain_info.startswith('*.') and len(pdomain_info.split("*")) < 3:
@@ -364,7 +364,7 @@ class ShodanScan(object):
         # 4:write result file
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Nuclei] 开始写入第" + str(i) + "/" + str(pdomain) + "-" + str(pdomain))
+            logger.log('INFOR',"[Nuclei] 开始写入第" + str(i) + "/" + str(pdomain) + "-" + str(pdomain))
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             pdomain_info = self.es_helper.remove_http_or_https(pdomain).split("/")[0]
             if pdomain_info.startswith('*.') and len(pdomain_info.split("*")) < 3:
@@ -372,7 +372,7 @@ class ShodanScan(object):
             i = i + 1
 
     def subdomaindir_scan_by_pdomain(self, pdomain=None):
-        logger.log('INFO',"[SubdomainPort] 开始写入 - " + pdomain)
+        logger.log('INFOR',"[SubdomainPort] 开始写入 - " + pdomain)
         asset_list = self.read_subdomain_list(pdomain=pdomain)
         if asset_list != None:
             # write subdomain file by pdomain
@@ -380,12 +380,12 @@ class ShodanScan(object):
             self.write_subdomain_list(program=pdomain_name,asset_list=asset_list)
 
             # start scan subdomain
-            logger.log('INFO',"[SubdomainPort] 开始扫描 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始扫描 - " + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startSubdomainPortFileScan(program=pdomain_name)
 
             # write subdomain
-            logger.log('INFO',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
             psource = self.read_info_by_pdomain(pdomain=pdomain)
             if psource != None:
                 try:

@@ -45,7 +45,7 @@ class SubdomainDirScan(object):
         self.dirsearch_index = "dirsearch-assets-1"
 
     def searchallprogramdomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {'query': {'match_all': {}}}
         res = self.es_helper.query_domains_by_dsl(self.program_index,dsl=query)
         pdomain_list = []
@@ -55,7 +55,7 @@ class SubdomainDirScan(object):
         return pdomain_list
 
     def searchallprivatebountydomain(self):
-        logger.log('INFO', "[+]Start search all program domains.")
+        logger.log('INFOR', "[+]Start search all program domains.")
         query = {
             "query": {
                 "bool": {"must": [
@@ -73,7 +73,7 @@ class SubdomainDirScan(object):
         return pdomain_list
 
     def searchallh1cdomain(self):
-        logger.log('INFO', "[+]Start search hack-us-h1c program domains.")
+        logger.log('INFOR', "[+]Start search hack-us-h1c program domains.")
         query = {
             "query": {
                 "range": {
@@ -349,7 +349,7 @@ class SubdomainDirScan(object):
         # 2:write all 403,404 subdomain by pdomain
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainDir] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainDir] 开始写入父域第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             asset_list = self.read_subdomain_list(pdomain=pdomain)
             if asset_list != None:
                 pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.","").replace("*","")
@@ -359,7 +359,7 @@ class SubdomainDirScan(object):
         # 3:start scan subdomain dir
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[SubdomainDir] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+            logger.log('INFOR',"[SubdomainDir] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             # self.startSubdomainDirFileScan(pdomain_name)
             f1 = executor.submit(self.startSubdomainDirFileScan, pdomain_name)
@@ -371,7 +371,7 @@ class SubdomainDirScan(object):
         i = 1
         for pdomain in all_pdomain_list:
             try:
-                #logger.log('INFO',"[SubdomainDir] 开始写入资产第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
+                #logger.log('INFOR',"[SubdomainDir] 开始写入资产第" + str(i) + "/" + str(pdomain_len) + "-" + pdomain)
                 pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
                 self.write_subdomainDir_file_list(pdomain_name)
             except Exception as error:
@@ -380,7 +380,7 @@ class SubdomainDirScan(object):
 
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + str(pdomain))
+            logger.log('INFOR',"[Nuclei] 开始扫描第" + str(i) + "/" + str(pdomain_len) + "-" + str(pdomain))
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             f1 = executor.submit(self.nuclei_scan.startNucleiFileScan, pdomain_name)
             futures.append(f1)
@@ -390,13 +390,13 @@ class SubdomainDirScan(object):
 
         i = 1
         for pdomain in all_pdomain_list:
-            logger.log('INFO',"[Nuclei] 开始写入第" + str(i) + "/" + str(pdomain) + "-" + str(pdomain))
+            logger.log('INFOR',"[Nuclei] 开始写入第" + str(i) + "/" + str(pdomain) + "-" + str(pdomain))
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.nuclei_scan.write_nuclei_template_list(program=pdomain_name)
             i = i + 1
 
     def subdomaindir_scan_by_pdomain(self, pdomain=None):
-        logger.log('INFO',"[SubdomainPort] 开始写入 - " + pdomain)
+        logger.log('INFOR',"[SubdomainPort] 开始写入 - " + pdomain)
         asset_list = self.read_subdomain_list(pdomain=pdomain)
         if asset_list != None:
             # write subdomain file by pdomain
@@ -404,12 +404,12 @@ class SubdomainDirScan(object):
             self.write_subdomain_list(program=pdomain_name,asset_list=asset_list)
 
             # start scan subdomain
-            logger.log('INFO',"[SubdomainPort] 开始扫描 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始扫描 - " + pdomain)
             pdomain_name = self.es_helper.remove_http_or_https(pdomain).split("/")[0].replace("*.", "").replace("*", "")
             self.startSubdomainPortFileScan(program=pdomain_name)
 
             # write subdomain
-            logger.log('INFO',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
+            logger.log('INFOR',"[SubdomainPort] 开始写入子域资产 - " + pdomain)
             psource = self.read_info_by_pdomain(pdomain=pdomain)
             if psource != None:
                 try:
