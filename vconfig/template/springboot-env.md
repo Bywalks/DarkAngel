@@ -1,5 +1,5 @@
 ## Title:
-Env Disclosure via Spring Boot Actuator - [https://ccap.codeforamerica.org]
+Env Disclosure via Spring Boot Actuator - [website]
 
 ## Summary
 The Spring Boot Actuators are exposing information on **[website]** and **other** such as the environment configuration.
@@ -8,7 +8,7 @@ The endpoints are the following:
 - /actuator/env
 
 ## PoC - Get the environment configuration
-Visit the following URL: https://ccap.codeforamerica.org/actuator/env. The HTTP response will show the Spring Boot configuration file:
+Visit the following URL: [website]. The HTTP response will show the Spring Boot configuration file:
 
 ## Below is a screenshot
 {}
