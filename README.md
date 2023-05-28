@@ -339,15 +339,22 @@ Welcome to submit vulnerability templates in [GitHub Discussions](https://github
                                                   
 ## Recent Updates
 
+#### [v0.0.9] - 2023-05-28
+
+**Update**  
+
+- Update nuclei version to 2.9.4
+- Update nuclei_config.yaml file, suitable for nuclei version 2.9.4
+
 #### [v0.0.8] - 2023-02-26
 
-**更新**  
+**Update**  
 
 - Add telegram real-time notification scan results
 
 #### [v0.0.7] - 2023-02-20
 
-**更新**  
+**Update**  
 
 - Update vulnerability template generation module and update vulnerability template format
 - Add an automatic screenshot of the vulnerability URL and save it to the vulscan/results/image directory

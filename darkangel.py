@@ -63,7 +63,7 @@ darkangel_banner = f'''{green}
  / /_/ / /_/ / /  / ,< / ___ |/ / / / /_/ /  __/ /  
 /_____/\__,_/_/  /_/|_/_/  |_/_/ /_/\__, /\___/_/   
                                    /____/                  
-{green}                           By Bywalks | V 0.0.8    
+{green}                           By Bywalks | V 0.0.9    
 
 DarkAngel is a white hat scanner. Every white hat makes the Internet more secure.        
 '''
