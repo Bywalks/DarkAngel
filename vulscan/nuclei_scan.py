@@ -300,7 +300,7 @@ class NucleiScan(object):
 
     def startNucleiScan(self,asset_info):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://domain.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://domain.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         :return:
         '''
         logger.log('INFOR',"Nuclei urls scan starting....")
@@ -320,14 +320,14 @@ class NucleiScan(object):
         logger.log('INFOR',nuclei_output_file)
         if os.path.exists(nuclei_output_file):
             os.remove(nuclei_output_file)
-        cmd_lines = f"{self.nuclei_cmd} -json -o {nuclei_output_file} -u {url}"
+        cmd_lines = f"{self.nuclei_cmd} -j -o {nuclei_output_file} -u {url}"
         logger.log('INFOR',cmd_lines)
         # 开启nuclei
         os.system(cmd_lines)
 
     def startNucleiNewTemlScan(self,asset_info):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         :return:
         '''
         logger.log('INFOR',"Nuclei urls new temp scan starting....")
@@ -347,14 +347,14 @@ class NucleiScan(object):
         logger.log('INFOR',nuclei_output_file)
         if os.path.exists(nuclei_output_file):
             os.remove(nuclei_output_file)
-        cmd_lines = f"{self.nuclei_new_temp_cmd} -json -o {nuclei_output_file} -u {url}"
+        cmd_lines = f"{self.nuclei_new_temp_cmd} -j -o {nuclei_output_file} -u {url}"
         logger.log('INFOR',cmd_lines)
         # 开启dirsearch
         os.system(cmd_lines)
 
     def startNucleiNewTemlFileScan(self, filename):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -stats -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         :return:
         '''
         logger.log('INFOR',"Nuclei urls new temp file scan starting....")
@@ -364,14 +364,14 @@ class NucleiScan(object):
         if os.path.exists(nuclei_output_file):
             os.remove(nuclei_output_file)
         if os.path.exists(urls_output_txt):
-            cmd_lines = f"{self.nuclei_new_temp_cmd} -json -o {nuclei_output_file} -l {urls_output_txt}"
+            cmd_lines = f"{self.nuclei_new_temp_cmd} -j -o {nuclei_output_file} -l {urls_output_txt}"
             logger.log('INFOR',cmd_lines)
             # 开启dirsearch
             os.system(cmd_lines)
 
     def startNucleiTempFileScan(self, program ,templateName):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         Temp: -t vulnerabilities/my/my-cache.yaml
         '''
         logger.log('INFOR',"Nuclei template scan starting....")
@@ -383,14 +383,14 @@ class NucleiScan(object):
         if os.path.exists(nuclei_template_output_file):
             os.remove(nuclei_template_output_file)
         if os.path.exists(urls_output_txt):
-            cmd_lines = f"{self.nuclei_cmd} -t {templateName} -json -o {nuclei_template_output_file} -l {urls_output_txt}"
+            cmd_lines = f"{self.nuclei_cmd} -t {templateName} -j -o {nuclei_template_output_file} -l {urls_output_txt}"
             logger.log('INFOR',cmd_lines)
             # 开启dirsearch
             os.system(cmd_lines)
 
     def startNucleiFileScan(self, program):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         Temp: -t vulnerabilities/my/my-cache.yaml
         '''
         logger.log('INFOR',"Nuclei template scan starting....")
@@ -402,14 +402,14 @@ class NucleiScan(object):
         if os.path.exists(nuclei_template_output_file):
             os.remove(nuclei_template_output_file)
         if os.path.exists(urls_output_txt):
-            cmd_lines = f"{self.nuclei_cmd} -json -o {nuclei_template_output_file} -l {urls_output_txt}"
+            cmd_lines = f"{self.nuclei_cmd} -j -o {nuclei_template_output_file} -l {urls_output_txt}"
             logger.log('INFOR',cmd_lines)
             # 开启dirsearch
             os.system(cmd_lines)
 
     def startNucleiListScan(self, program):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         Temp: -t vulnerabilities/my/my-cache.yaml
         '''
         logger.log('INFOR',"Nuclei template scan starting....")
@@ -418,7 +418,7 @@ class NucleiScan(object):
         assert os.path.exists(urls_output_txt), f"url list file:{urls_output_txt} not exists!"
         nuclei_list_output_file = f"{self.nuclei_resultDir}/{program}_nuclei_output.json"
         logger.log('INFOR',nuclei_list_output_file)
-        cmd_lines = f"{self.nuclei_cmd} -json -o {nuclei_list_output_file} -l {urls_output_txt}"
+        cmd_lines = f"{self.nuclei_cmd} -j -o {nuclei_list_output_file} -l {urls_output_txt}"
         logger.log('INFOR',cmd_lines)
         # 开启dirsearch
         os.system(cmd_lines)
@@ -474,16 +474,19 @@ class NucleiScan(object):
                 ADD：URL、Method、Headers、Data、Source
                 '''
                 for each in f:
-                    each = json.loads(each)
-                    vuln_info['website'] = each['host']
-                    vuln_info['vuln_type'] = each['info']['tags']
-                    vuln_info['vuln_name'] = each['info']['name']
-                    vuln_info['scan_detail'] = each
-                    self.vuln_manager.add_nuclei_vuln_score(vuln_info)
-                    self.vuln_manager.generate_report(vuln_info)
-                    self.vuln_manager.start_screenshot_driver(vuln_info)
-                    logger.log('INFOR',vuln_info)
-                    self.es_helper.insert_one_doc(self.vuln_index, vuln_info)
+                    try:
+                        each = json.loads(each)
+                        vuln_info['website'] = each['host']
+                        vuln_info['vuln_type'] = each['info']['tags']
+                        vuln_info['vuln_name'] = each['info']['name']
+                        vuln_info['scan_detail'] = each
+                        self.vuln_manager.add_nuclei_vuln_score(vuln_info)
+                        self.vuln_manager.generate_report(vuln_info)
+                        self.vuln_manager.start_screenshot_driver(vuln_info)
+                        logger.log('INFOR', vuln_info)
+                        self.es_helper.insert_one_doc(self.vuln_index, vuln_info)
+                    except Exception as error:
+                        logger.log('DEBUG', f'{error}')
                 logger.log('INFOR',f'[+]nuclei[{url}]扫描完毕')
 
     def write_nuclei_template_list(self, program):
@@ -505,7 +508,7 @@ class NucleiScan(object):
                     vuln_info['scan_detail'] = each
                     self.vuln_manager.add_nuclei_vuln_score(vuln_info)
                     self.vuln_manager.generate_report(vuln_info)
-                    self.vuln_manager.start_screenshot_driver(vuln_info)
+                    # self.vuln_manager.start_screenshot_driver(vuln_info)
                     logger.log('INFOR',vuln_info)
                     self.es_helper.insert_one_doc(self.vuln_index, vuln_info)
                 logger.log('INFOR',f'[+]nuclei[{program}]扫描完毕')

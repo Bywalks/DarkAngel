@@ -5,3 +5,5 @@ vulscan/jsfinder_scan.py
 vulscan/secret_finder_scan.py
 vulscan/wordpress_scan.py
 vulscan/test.py
+da.py
+vulscan/tools/template.yaml

@@ -244,7 +244,7 @@ class DarkAngel(object):
 
             '''
             # 7：对新增的url做fuzz扫描
-            # ./interactsh-client-new -server https://xx -json -token xx -o /root/vuln_scan/vulscan/results/fuzz/fuzz.json
+            # ./interactsh-client-new -server https://xx -j -token xx -o /root/vuln_scan/vulscan/results/fuzz/fuzz.json
             time.sleep(20)
             i = 1
             for pdomain_info in pdomain_list:
@@ -485,7 +485,7 @@ class DarkAngel(object):
 
     def nuclei_five_file_scan_temp(self, templateName=None, offer_bounty=None, platform=None):
         '''
-        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -json -o 1.json
+        /root/vuln_scan/vulscan/tools/nuclei -u https://tw.mina.mi.com -severity critical,high,medium -status -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36' -j -o 1.json
         Temp: -t vulnerabilities/my/my-cache.yaml
         '''
         file_list = []
