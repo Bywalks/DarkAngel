@@ -93,7 +93,7 @@ view log
 docker logs -f elasticsearch
 
 If there is a problem, execute the command
-sysctl -w vm.max_ map_ count=262144
+sysctl -w vm.max_map_count=262144
 
 Restart Docker
 docker restart elasticsearch
@@ -112,7 +112,7 @@ view log
 docker logs -f kibana
 
 If there is a problem, execute the command
-sysctl -w vm.max_ map_ count=262144
+sysctl -w vm.max_map_count=262144
 
 Restart Docker
 docker start kibana
